@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Papelería Lamakinet | Hacemos práctica tu vida</title>
+
+  <style>
+    :root {
+      --color-primario: #1f4fd8;
+      --color-secundario: #f2b705;
+      --color-fondo: #f5f7fb;
+      --texto-principal: #1e1e1e;
+      --texto-secundario: #555;
+      --radio: 12px;
+      --sombra: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', Arial, Helvetica, sans-serif;
+      background-color: var(--color-fondo);
+      color: var(--texto-principal);
+      line-height: 1.7;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    /* BOTONES */
+    .btn {
+      padding: 10px 18px;
+      border-radius: var(--radio);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      border: none;
+      display: inline-block;
+    }
+
+    .btn-primary { background-color: var(--color-primario); color: #fff; }
+    .btn-secondary { background-color: var(--color-secundario); color: #000; }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    /* HEADER */
+    header { background-color: #fff; box-shadow: var(--sombra); padding: 20px 40px; }
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo { font-size: 1.5rem; font-weight: 600; color: var(--color-primario); }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    nav li {
+      font-size: 0.95rem;
+      color: var(--texto-secundario);
+      cursor: pointer;
+      position: relative;
+    }
+
+    nav li::after {
+      content: '';
+      width: 0;
+      height: 2px;
+      background-color: var(--color-primario);
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      transition: width 0.3s ease;
+    }
+
+    nav li:hover::after, nav li.active::after { width: 100%; }
+
+    nav li.active { color: var(--color-primario); font-weight: 500; }
+
+    .nav-actions { display: flex; gap: 10px; }
+
+    /* HERO */
+    .hero {
+      padding: 90px 40px;
+      background: linear-gradient(135deg, #ffffff, #eef2ff);
+      text-align: center;
+    }
+
+    .hero h1 { font-size: 2.2rem; margin-bottom: 20px; color: var(--color-primario); }
+    .hero p { max-width: 750px; margin: 0 auto 30px; color: var(--texto-secundario); }
+
+    .hero-buttons { display: flex; justify-content: center; gap: 15px; }
+
+    /* SECCIONES */
+    section { padding: 60px 40px; }
+    section.alt { background-color: #fff; }
+
+    section h2 {
+      font-size: 1.6rem;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    /* CARDS */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .card {
+      background-color: #fff;
+      border-radius: var(--radio);
+      box-shadow: var(--sombra);
+      padding: 25px;
+      transition: transform 0.25s ease;
+    }
+
+    .card:hover { transform: translateY(-5px); }
+
+    .card h3 { margin-bottom: 15px; color: var(--color-primario); }
+    .card ul { padding-left: 20px; color: var(--texto-secundario); }
+
+    /* COMO TRABAJAMOS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+
+    .step {
+      background: #fff;
+      padding: 25px;
+      border-radius: var(--radio);
+      box-shadow: var(--sombra);
+    }
+
+    .step span { font-size: 2rem; display: block; margin-bottom: 10px; }
+
+    /* FAQ */
+    .faq {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-item {
+      background: #fff;
+      padding: 20px;
+      border-radius: var(--radio);
+      box-shadow: var(--sombra);
+      margin-bottom: 15px;
+    }
+
+    .faq-item strong { display: block; margin-bottom: 8px; }
+
+    /* PARA QUIEN ES */
+    .audience {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      text-align: center;
+    }
+
+    .audience .card span { font-size: 2rem; display: block; margin-bottom: 10px; }
+
+    /* WHATSAPP */
+    .btn-whatsapp {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #25d366;
+      color: #fff;
+      padding: 14px 18px;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      box-shadow: var(--sombra);
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #fff;
+      padding: 40px;
+      box-shadow: var(--sombra);
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--texto-secundario);
+    }
+
+    footer strong { color: var(--color-primario); }
+
+    @media (max-width: 768px) {
+      .header-content { flex-direction: column; gap: 15px; }
+      .hero-buttons { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-content container">
+    <div class="logo">Papelería Lamakinet</div>
+    <nav>
+      <ul>
+        <li class="active">Inicio</li>
+        <li>Productos</li>
+        <li>Servicios</li>
+        <li>Contacto</li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <span class="btn btn-secondary">Buscar</span>
+      <span class="btn btn-primary">Iniciar sesión</span>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Hacemos práctica tu vida</h1>
+  <p>Soluciones rápidas y confiables en papelería, impresiones y servicios diarios para estudiantes, hogares y negocios.</p>
+  <div class="hero-buttons">
+    <span class="btn btn-primary">Ver servicios</span>
+    <span class="btn btn-secondary">Contactar</span>
+  </div>
+</section>
+
+<section class="alt">
+  <h2>Nuestros productos y servicios</h2>
+  <div class="cards container">
+    <div class="card"><h3>📄 Papelería</h3><ul><li>Útiles escolares</li><li>Artículos de oficina</li><li>Carpetas y archivadores</li></ul></div>
+    <div class="card"><h3>🖨️ Impresiones</h3><ul><li>B/N y color</li><li>Fotocopias</li><li>Escaneo</li></ul></div>
+    <div class="card"><h3>✂️ Servicios</h3><ul><li>Anillado</li><li>Laminado</li><li>Trabajos académicos</li></ul></div>
+  </div>
+</section>
+
+<section>
+  <h2>Cómo trabajamos</h2>
+  <div class="steps container">
+    <div class="step"><span>📝</span>Nos cuentas tu necesidad</div>
+    <div class="step"><span>⚙️</span>La resolvemos rápido</div>
+    <div class="step"><span>✅</span>Te entregamos la solución</div>
+  </div>
+</section>
+
+<section class="alt">
+  <h2>Preguntas frecuentes</h2>
+  <div class="faq">
+    <div class="faq-item"><strong>¿Atienden trabajos urgentes?</strong>Sí, damos prioridad cuando el cliente lo necesita.</div>
+    <div class="faq-item"><strong>¿Imprimen desde USB o WhatsApp?</strong>Sí, recibimos archivos digitales.</div>
+    <div class="faq-item"><strong>¿Atienden estudiantes y empresas?</strong>Atendemos ambos con soluciones a medida.</div>
+  </div>
+</section>
+
+<section>
+  <h2>¿Para quién es?</h2>
+  <div class="audience container">
+    <div class="card"><span>🎓</span><h3>Estudiantes</h3><p>Trabajos, impresiones y útiles.</p></div>
+    <div class="card"><span>🏢</span><h3>Negocios</h3><p>Documentos, copias y apoyo diario.</p></div>
+    <div class="card"><span>🏠</span><h3>Hogares</h3><p>Soluciones prácticas del día a día.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Papelería Lamakinet</strong></p>
+  <p>Atención cercana • Rapidez • Soluciones prácticas</p>
+</footer>
+
+<!-- BOTÓN WHATSAPP (JS SE CONECTA AQUÍ) -->
+<div class="btn-whatsapp">💬 WhatsApp</div>
+
+<!-- FUTURO: JS WhatsApp | login | carrito | pagos -->
+
+</body>
+</html>
