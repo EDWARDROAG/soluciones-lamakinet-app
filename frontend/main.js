@@ -1,15 +1,3 @@
-/* =========================================
-   JS BASE – PAPELERÍA LAMAKINET
-   Funcionalidad inicial (sin backend)
-   ========================================= */
-
-/* =========================
-   BOTÓN WHATSAPP
-   =========================
-   - Solo abre WhatsApp
-   - Número y mensaje fácilmente modificables
-   - Pensado para negocio local
-*/
 
 (function () {
   const whatsappBtn = document.querySelector('.btn-whatsapp');
@@ -29,14 +17,3 @@
   });
 })();
 
-/* =========================
-   FUTURAS FUNCIONES (NO ACTIVAS)
-   =========================
-   - Scroll suave a secciones
-   - Botón "Ver servicios"
-   - Navegación activa
-   - Tracking de clics
-*/
-
-// document.querySelector('.btn-primary').addEventListener(...)
-// document.querySelector('nav li').addEventListener(...)
