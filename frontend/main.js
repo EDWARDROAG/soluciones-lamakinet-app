@@ -78,4 +78,48 @@
   });
 })();
 
+// ===============================
+// LOGIN VISUAL (SIN BACKEND)
+// ===============================
+(function () {
+  const btnLogin = document.getElementById('btn-login');
+  const modal = document.getElementById('login-modal');
+  const btnClose = document.getElementById('btn-close-login');
+  const form = document.getElementById('login-form');
+  const errorMsg = document.getElementById('login-error');
+
+  if (!btnLogin || !modal) return;
+
+  btnLogin.addEventListener('click', () => {
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+  });
+
+  btnClose.addEventListener('click', () => {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    errorMsg.hidden = true;
+    form.reset();
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const user = document.getElementById('login-user').value.trim();
+    const pass = document.getElementById('login-pass').value.trim();
+
+    if (!user || !pass) {
+      errorMsg.hidden = false;
+      return;
+    }
+
+    errorMsg.hidden = true;
+    alert('Login visual correcto (sin backend)');
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    form.reset();
+  });
+})();
+
+
 

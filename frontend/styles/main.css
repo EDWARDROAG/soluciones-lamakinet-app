@@ -392,3 +392,61 @@ footer a:hover {
     padding: 20px 0;
   }
 }
+
+
+/* ===============================
+   LOGIN MODAL (VISUAL)
+================================ */
+.login-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.login-modal.active {
+  display: flex;
+}
+
+.login-box {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: var(--radio);
+  width: 100%;
+  max-width: 380px;
+  box-shadow: var(--sombra);
+}
+
+.login-box h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.login-box label {
+  display: block;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+}
+
+.login-box input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: var(--radio);
+  border: 1px solid #ccc;
+}
+
+.login-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.login-error {
+  color: red;
+  margin-top: 15px;
+  font-size: 0.9rem;
+}

@@ -9,6 +9,36 @@
   <link rel="stylesheet" href="styles/main.css" />
 </head>
 
+<!-- ================= LOGIN MODAL ================= -->
+<div id="login-modal" class="login-modal" aria-hidden="true">
+  <div class="login-box" role="dialog" aria-labelledby="login-title">
+    <h2 id="login-title">Iniciar sesión</h2>
+
+    <form id="login-form">
+      <label>
+        Usuario
+        <input type="text" id="login-user" required />
+      </label>
+
+      <label>
+        Contraseña
+        <input type="password" id="login-pass" required />
+      </label>
+
+      <div class="login-actions">
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+        <button type="button" id="btn-close-login" class="btn btn-secondary">
+          Cancelar
+        </button>
+      </div>
+
+      <p id="login-error" class="login-error" hidden>
+        Por favor completa todos los campos.
+      </p>
+    </form>
+  </div>
+</div>
+
 <body id="top">
 
 <!-- ================= HEADER ================= -->
@@ -35,7 +65,8 @@
 
     <div class="nav-actions">
       <button class="btn btn-secondary">Buscar</button>
-      <button class="btn btn-primary">Iniciar sesión</button>
+      <button id="btn-login" class="btn btn-primary">Iniciar sesión</button>
+>
     </div>
 
   </div>
