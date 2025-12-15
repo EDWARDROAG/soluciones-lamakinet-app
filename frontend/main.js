@@ -5,7 +5,7 @@
   if (!whatsappBtn) return;
 
   // CONFIGURACIÓN
-  const phoneNumber = '573000000000'; // 👉 Cambiar por el número real (formato internacional)
+  const phoneNumber = '573115610825'; 
   const defaultMessage = 'Hola, estoy interesado en sus servicios de Papelería Lamakinet.';
 
   // Construcción del enlace
@@ -17,3 +17,24 @@
   });
 })();
 
+// ===============================
+// SCROLL SUAVE PARA NAVEGACIÓN
+// ===============================
+(function () {
+  const links = document.querySelectorAll('a[href^="#"]');
+
+  links.forEach(link => {
+    link.addEventListener('click', function (e) {
+      const targetId = this.getAttribute('href');
+      const target = document.querySelector(targetId);
+
+      if (!target) return;
+
+      e.preventDefault();
+      target.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    });
+  });
+})();
