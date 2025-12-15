@@ -5,183 +5,173 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Papelería Lamakinet | Hacemos práctica tu vida</title>
 
-  <!-- CSS principal -->
+  <!-- CSS -->
   <link rel="stylesheet" href="styles/main.css" />
 </head>
-<body>
 
+<body id="top">
+
+<!-- ================= HEADER ================= -->
 <header>
   <div class="header-content container">
-    <div class="logo" aria-label="Papelería Lamakinet">
-      Papelería Lamakinet
-    </div>
 
+    <div class="logo">Papelería Lamakinet</div>
+
+    <!-- Botón menú móvil -->
+    <button id="btn-menu" class="btn-menu" aria-label="Abrir menú">
+      ☰
+    </button>
+
+    <!-- Navegación -->
     <nav aria-label="Navegación principal">
       <ul class="nav-menu">
-        <li class="active"><a href="#" aria-current="page">Inicio</a></li>
+        <li><a href="#top">Inicio</a></li>
         <li><a href="#servicios">Servicios</a></li>
         <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#faq">Preguntas</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
 
     <div class="nav-actions">
-      <button class="btn btn-secondary" aria-label="Buscar servicios">
-        Buscar
-      </button>
-      <button class="btn btn-primary" aria-label="Iniciar sesión">
-        Iniciar sesión
-      </button>
+      <button class="btn btn-secondary">Buscar</button>
+      <button class="btn btn-primary">Iniciar sesión</button>
     </div>
+
   </div>
 </header>
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero" aria-labelledby="hero-title">
-    <div class="container">
-      <h1 id="hero-title">Hacemos práctica tu vida</h1>
-      <p>
-        Todo en papelería, impresiones, tecnología y servicios diarios en un solo lugar.
-      </p>
-
-      <div class="hero-buttons">
-        <button class="btn btn-primary btn-lg">Ver servicios</button>
-        <button class="btn btn-secondary btn-lg">Contactar</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICIOS -->
-  <section id="servicios" aria-labelledby="servicios-title">
-    <div class="container">
-      <h2 id="servicios-title">Nuestros servicios</h2>
-
-      <div class="cards">
-
-        <article class="card">
-          <h3>🧾 Servicios rápidos</h3>
-          <ul>
-            <li>Pago de servicios públicos</li>
-            <li>Recargas a todo operador</li>
-            <li>Consultas y certificados</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h3>📄 Impresión y copiado</h3>
-          <ul>
-            <li>Copias y escáner</li>
-            <li>Impresión B/N y color</li>
-            <li>Impresión gran formato</li>
-            <li>Papel fotográfico y especial</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h3>📢 Publicidad y gran formato</h3>
-          <ul>
-            <li>Plotter</li>
-            <li>Volantes por millar</li>
-            <li>Tarjetas por millar</li>
-            <li>Publicidad al por mayor</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h3>🎓 Académico y estudiantil</h3>
-          <ul>
-            <li>Elaboración de maquetas</li>
-            <li>Insumos para maquetas</li>
-            <li>Material estudiantil</li>
-            <li>Cartas y certificaciones</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h3>💻 Tecnología y soporte</h3>
-          <ul>
-            <li>Reparación de portátiles</li>
-            <li>Venta de tecnología</li>
-            <li>Material de oficina y tecnología</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h3>🌐 Servicios digitales</h3>
-          <ul>
-            <li>Diseño de páginas web</li>
-            <li>Tarjetas digitales</li>
-            <li>Asesoría tecnológica</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <h3>🎁 Personalizados</h3>
-          <ul>
-            <li>Mugs personalizados</li>
-            <li>Tarjetas personalizadas</li>
-          </ul>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- PROYECTOS -->
-  <section id="proyectos" class="alt" aria-labelledby="proyectos-title">
-    <div class="container">
-      <h2 id="proyectos-title">Nuestros proyectos</h2>
-
-      <p style="text-align:center; max-width:700px; margin:0 auto 30px;">
-        Conoce algunos de los proyectos y trabajos realizados por Soluciones Lamakinet
-        en diseño, impresión, publicidad y tecnología.
-      </p>
-
-      <div style="text-align:center;">
-        <a href="proyectos.html" class="btn btn-primary" aria-label="Ver nuestros proyectos">
-          Ver proyectos
-        </a>
-      </div>
-    </div>
-  </section>
-
-<!-- FAQ -->
-<section aria-labelledby="faq-title" class="alt">
+<!-- ================= HERO ================= -->
+<section class="hero">
   <div class="container">
-    <h2 id="faq-title">Preguntas frecuentes</h2>
+    <h1>Hacemos práctica tu vida</h1>
+    <p>
+      Todo en papelería, impresiones, tecnología y servicios diarios
+      para estudiantes, hogares y negocios.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#servicios" class="btn btn-primary btn-lg">Ver servicios</a>
+      <a href="#contacto" class="btn btn-secondary btn-lg">Contactar</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICIOS ================= -->
+<section id="servicios">
+  <div class="container">
+    <h2>Nuestros servicios</h2>
+
+    <div class="cards">
+
+      <article class="card">
+        <h3>🧾 Servicios rápidos</h3>
+        <ul>
+          <li>Pago de servicios públicos</li>
+          <li>Recargas a todo operador</li>
+          <li>Consultas y certificados</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>📄 Impresión y copiado</h3>
+        <ul>
+          <li>Copias y escáner</li>
+          <li>Impresión B/N y color</li>
+          <li>Gran formato y plotter</li>
+          <li>Papel fotográfico y especial</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>📢 Publicidad</h3>
+        <ul>
+          <li>Volantes y tarjetas por millar</li>
+          <li>Publicidad al por mayor</li>
+          <li>Mugs personalizados</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>🎓 Académico</h3>
+        <ul>
+          <li>Elaboración de maquetas</li>
+          <li>Insumos para maquetas</li>
+          <li>Cartas y certificaciones</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>💻 Tecnología</h3>
+        <ul>
+          <li>Reparación de portátiles</li>
+          <li>Venta de tecnología</li>
+          <li>Soporte y asesoría</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <h3>🌐 Servicios digitales</h3>
+        <ul>
+          <li>Diseño de páginas web</li>
+          <li>Tarjetas digitales</li>
+        </ul>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROYECTOS ================= -->
+<section id="proyectos" class="alt">
+  <div class="container">
+    <h2>Nuestros proyectos</h2>
+
+    <p style="text-align:center; max-width:720px; margin:0 auto 30px;">
+      Algunos de los trabajos realizados en impresión, publicidad,
+      diseño web y soluciones tecnológicas.
+    </p>
+
+    <div style="text-align:center;">
+      <a href="proyectos.html" class="btn btn-primary">
+        Ver proyectos
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ (CARDS) ================= -->
+<section id="faq">
+  <div class="container">
+    <h2>Preguntas frecuentes</h2>
 
     <div class="cards">
 
       <article class="card">
         <h3>¿Atienden trabajos urgentes?</h3>
-        <p>Sí, damos prioridad a los trabajos urgentes según la necesidad del cliente.</p>
+        <p>Sí, damos prioridad según la necesidad del cliente.</p>
       </article>
 
       <article class="card">
         <h3>¿Puedo enviar archivos por WhatsApp?</h3>
-        <p>Sí, recibimos archivos por WhatsApp, USB y correo electrónico.</p>
+        <p>Sí, recibimos archivos por WhatsApp, USB y correo.</p>
       </article>
 
       <article class="card">
         <h3>¿Hacen impresiones en gran formato?</h3>
-        <p>Sí, contamos con impresión en gran formato y servicio de plotter.</p>
+        <p>Sí, contamos con impresión gran formato y plotter.</p>
       </article>
 
       <article class="card">
         <h3>¿Reparan computadores portátiles?</h3>
-        <p>Sí, realizamos diagnóstico y reparación de portátiles.</p>
-      </article>
-
-      <article class="card">
-        <h3>¿Diseñan páginas web?</h3>
-        <p>Sí, desarrollamos páginas web según la necesidad del cliente.</p>
+        <p>Sí, realizamos diagnóstico y reparación.</p>
       </article>
 
       <article class="card">
         <h3>¿Atienden fines de semana?</h3>
-        <p>Sí, atendemos sábados y domingos en los horarios establecidos.</p>
+        <p>Sí, abrimos sábados y domingos.</p>
       </article>
 
     </div>
@@ -190,7 +180,7 @@
 
 </main>
 
-<!-- FOOTER -->
+<!-- ================= FOOTER ================= -->
 <footer id="contacto">
   <div class="container">
 
@@ -202,28 +192,24 @@
     </ul>
 
     <div style="margin:25px 0;">
-      <a href="#" aria-label="Facebook" style="margin:0 10px;">Facebook</a>
-      <a href="#" aria-label="TikTok" style="margin:0 10px;">TikTok</a>
-      <a href="#" aria-label="Instagram" style="margin:0 10px;">Instagram</a>
+      <a href="#" aria-label="Facebook">Facebook</a>
+      <a href="#" aria-label="TikTok">TikTok</a>
+      <a href="#" aria-label="Instagram">Instagram</a>
     </div>
 
-    <p style="margin-top:20px;">
-      © Soluciones Lamakinet – Todos los derechos reservados
-    </p>
-
-    <p>
-      Creado por <strong>Soluciones Lamakinet</strong>
-    </p>
+    <p>© Soluciones Lamakinet – Todos los derechos reservados</p>
+    <p>Creado por <strong>Soluciones Lamakinet</strong></p>
 
   </div>
 </footer>
 
-<!-- BOTÓN WHATSAPP -->
-<button class="btn-whatsapp" aria-label="Contactar por WhatsApp">
+<!-- ================= WHATSAPP ================= -->
+<button id="btn-whatsapp" class="btn-whatsapp" aria-label="Contactar por WhatsApp">
   💬 WhatsApp
 </button>
 
-<!-- JS principal -->
+<!-- ================= JS ================= -->
 <script src="main.js"></script>
+
 </body>
 </html>

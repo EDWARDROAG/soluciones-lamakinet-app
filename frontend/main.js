@@ -64,3 +64,18 @@
   });
 })();
 
+// ===============================
+// MENÚ RESPONSIVE
+// ===============================
+(function () {
+  const btnMenu = document.getElementById('btn-menu');
+  const nav = document.querySelector('nav');
+
+  if (!btnMenu || !nav) return;
+
+  btnMenu.addEventListener('click', () => {
+    nav.classList.toggle('active');
+  });
+})();
+
+
