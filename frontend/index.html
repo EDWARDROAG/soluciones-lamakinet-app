@@ -10,153 +10,220 @@
 </head>
 <body>
 
- <header>
+<header>
   <div class="header-content container">
-    <div class="logo">Papelería Lamakinet</div>
+    <div class="logo" aria-label="Papelería Lamakinet">
+      Papelería Lamakinet
+    </div>
 
-    <nav>
-      <ul>
-        <li class="active">Inicio</li>
-        <li>Productos</li>
-        <li>Servicios</li>
-        <li>Contacto</li>
+    <nav aria-label="Navegación principal">
+      <ul class="nav-menu">
+        <li class="active"><a href="#" aria-current="page">Inicio</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
 
     <div class="nav-actions">
-      <span class="btn btn-secondary">Buscar</span>
-      <span class="btn btn-primary">Iniciar sesión</span>
+      <button class="btn btn-secondary" aria-label="Buscar servicios">
+        Buscar
+      </button>
+      <button class="btn btn-primary" aria-label="Iniciar sesión">
+        Iniciar sesión
+      </button>
     </div>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
-  <h1>Hacemos práctica tu vida</h1>
-  <p>
-    Soluciones rápidas y confiables en papelería, impresiones y servicios diarios
-    para estudiantes, hogares y negocios.
-  </p>
+<main>
 
-  <div class="hero-buttons">
-    <span class="btn btn-primary">Ver servicios</span>
-    <span class="btn btn-secondary">Contactar</span>
-  </div>
-</section>
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <h1 id="hero-title">Hacemos práctica tu vida</h1>
+      <p>
+        Todo en papelería, impresiones, tecnología y servicios diarios en un solo lugar.
+      </p>
 
-<!-- PRODUCTOS Y SERVICIOS -->
-<section class="alt">
-  <h2>Nuestros productos y servicios</h2>
-
-  <div class="cards container">
-    <div class="card">
-      <h3>📄 Papelería</h3>
-      <ul>
-        <li>Útiles escolares</li>
-        <li>Artículos de oficina</li>
-        <li>Carpetas y archivadores</li>
-      </ul>
+      <div class="hero-buttons">
+        <button class="btn btn-primary btn-lg">Ver servicios</button>
+        <button class="btn btn-secondary btn-lg">Contactar</button>
+      </div>
     </div>
+  </section>
 
-    <div class="card">
-      <h3>🖨️ Impresiones</h3>
-      <ul>
-        <li>Impresión blanco y negro</li>
-        <li>Impresión a color</li>
-        <li>Escaneo de documentos</li>
-      </ul>
+  <!-- SERVICIOS -->
+  <section id="servicios" aria-labelledby="servicios-title">
+    <div class="container">
+      <h2 id="servicios-title">Nuestros servicios</h2>
+
+      <div class="cards">
+
+        <article class="card">
+          <h3>🧾 Servicios rápidos</h3>
+          <ul>
+            <li>Pago de servicios públicos</li>
+            <li>Recargas a todo operador</li>
+            <li>Consultas y certificados</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>📄 Impresión y copiado</h3>
+          <ul>
+            <li>Copias y escáner</li>
+            <li>Impresión B/N y color</li>
+            <li>Impresión gran formato</li>
+            <li>Papel fotográfico y especial</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>📢 Publicidad y gran formato</h3>
+          <ul>
+            <li>Plotter</li>
+            <li>Volantes por millar</li>
+            <li>Tarjetas por millar</li>
+            <li>Publicidad al por mayor</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>🎓 Académico y estudiantil</h3>
+          <ul>
+            <li>Elaboración de maquetas</li>
+            <li>Insumos para maquetas</li>
+            <li>Material estudiantil</li>
+            <li>Cartas y certificaciones</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>💻 Tecnología y soporte</h3>
+          <ul>
+            <li>Reparación de portátiles</li>
+            <li>Venta de tecnología</li>
+            <li>Material de oficina y tecnología</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>🌐 Servicios digitales</h3>
+          <ul>
+            <li>Diseño de páginas web</li>
+            <li>Tarjetas digitales</li>
+            <li>Asesoría tecnológica</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>🎁 Personalizados</h3>
+          <ul>
+            <li>Mugs personalizados</li>
+            <li>Tarjetas personalizadas</li>
+          </ul>
+        </article>
+
+      </div>
     </div>
+  </section>
 
-    <div class="card">
-      <h3>✂️ Servicios</h3>
-      <ul>
-        <li>Anillado</li>
-        <li>Laminado</li>
-        <li>Trabajos académicos</li>
-      </ul>
+  <!-- PROYECTOS -->
+  <section id="proyectos" class="alt" aria-labelledby="proyectos-title">
+    <div class="container">
+      <h2 id="proyectos-title">Nuestros proyectos</h2>
+
+      <p style="text-align:center; max-width:700px; margin:0 auto 30px;">
+        Conoce algunos de los proyectos y trabajos realizados por Soluciones Lamakinet
+        en diseño, impresión, publicidad y tecnología.
+      </p>
+
+      <div style="text-align:center;">
+        <a href="proyectos.html" class="btn btn-primary" aria-label="Ver nuestros proyectos">
+          Ver proyectos
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CÓMO TRABAJAMOS -->
-<section>
-  <h2>Cómo trabajamos</h2>
+  <!-- FAQ -->
+  <section aria-labelledby="faq-title">
+    <div class="container">
+      <h2 id="faq-title">Preguntas frecuentes</h2>
 
-  <div class="steps container">
-    <div class="step">
-      <span>📝</span>
-      <p>Nos cuentas tu necesidad</p>
+      <div class="faq">
+
+        <article class="faq-item">
+          <strong>¿Atienden trabajos urgentes?</strong>
+          Sí, damos prioridad cuando el cliente lo necesita.
+        </article>
+
+        <article class="faq-item">
+          <strong>¿Puedo enviar archivos por WhatsApp?</strong>
+          Sí, recibimos archivos por WhatsApp, USB y correo electrónico.
+        </article>
+
+        <article class="faq-item">
+          <strong>¿Hacen impresiones en gran formato?</strong>
+          Sí, contamos con impresión en gran formato y plotter.
+        </article>
+
+        <article class="faq-item">
+          <strong>¿Reparan computadores portátiles?</strong>
+          Sí, ofrecemos diagnóstico y reparación.
+        </article>
+
+        <article class="faq-item">
+          <strong>¿Diseñan páginas web?</strong>
+          Sí, desarrollamos páginas web según la necesidad del cliente.
+        </article>
+
+        <article class="faq-item">
+          <strong>¿Atienden fines de semana?</strong>
+          Sí, abrimos sábados y domingos.
+        </article>
+
+      </div>
     </div>
+  </section>
 
-    <div class="step">
-      <span>⚙️</span>
-      <p>La resolvemos rápido</p>
-    </div>
-
-    <div class="step">
-      <span>✅</span>
-      <p>Te entregamos la solución</p>
-    </div>
-  </div>
-</section>
-
-<!-- PREGUNTAS FRECUENTES -->
-<section class="alt">
-  <h2>Preguntas frecuentes</h2>
-
-  <div class="faq">
-    <div class="faq-item">
-      <strong>¿Atienden trabajos urgentes?</strong>
-      Sí, damos prioridad cuando el cliente lo necesita.
-    </div>
-
-    <div class="faq-item">
-      <strong>¿Imprimen desde USB o WhatsApp?</strong>
-      Sí, recibimos archivos digitales.
-    </div>
-
-    <div class="faq-item">
-      <strong>¿Atienden estudiantes y empresas?</strong>
-      Atendemos ambos con soluciones a medida.
-    </div>
-  </div>
-</section>
-
-<!-- PARA QUIÉN ES -->
-<section>
-  <h2>¿Para quién es?</h2>
-
-  <div class="audience container">
-    <div class="card">
-      <span>🎓</span>
-      <h3>Estudiantes</h3>
-      <p>Impresiones, trabajos y útiles escolares.</p>
-    </div>
-
-    <div class="card">
-      <span>🏢</span>
-      <h3>Negocios</h3>
-      <p>Documentos, copias y apoyo diario.</p>
-    </div>
-
-    <div class="card">
-      <span>🏠</span>
-      <h3>Hogares</h3>
-      <p>Soluciones prácticas del día a día.</p>
-    </div>
-  </div>
-</section>
+</main>
 
 <!-- FOOTER -->
-<footer>
-  <p><strong>Papelería Lamakinet</strong></p>
-  <p>Atención cercana • Rapidez • Soluciones prácticas</p>
+<footer id="contacto">
+  <div class="container">
+
+    <h3>Horarios de atención</h3>
+    <ul style="list-style:none; padding:0; margin:20px 0;">
+      <li>Lunes a viernes: 6:00 a.m. – 9:00 p.m.</li>
+      <li>Sábados: 7:00 a.m. – 8:00 p.m.</li>
+      <li>Domingos: 1:00 p.m. – 9:00 p.m.</li>
+    </ul>
+
+    <div style="margin:25px 0;">
+      <a href="#" aria-label="Facebook" style="margin:0 10px;">Facebook</a>
+      <a href="#" aria-label="TikTok" style="margin:0 10px;">TikTok</a>
+      <a href="#" aria-label="Instagram" style="margin:0 10px;">Instagram</a>
+    </div>
+
+    <p style="margin-top:20px;">
+      © Soluciones Lamakinet – Todos los derechos reservados
+    </p>
+
+    <p>
+      Creado por <strong>Soluciones Lamakinet</strong>
+    </p>
+
+  </div>
 </footer>
 
-<!-- BOTÓN WHATSAPP (solo visual por ahora) -->
-<div class="btn-whatsapp">💬 WhatsApp</div>
+<!-- BOTÓN WHATSAPP -->
+<button class="btn-whatsapp" aria-label="Contactar por WhatsApp">
+  💬 WhatsApp
+</button>
 
-  <!-- JS principal -->
-  <script src="main.js"></script>
+<!-- JS principal -->
+<script src="main.js"></script>
 </body>
 </html>
