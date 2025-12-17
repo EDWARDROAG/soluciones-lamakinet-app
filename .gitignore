@@ -13,3 +13,9 @@ obj/
 # Editor
 .vscode/
 .idea/
+# Node
+node_modules/
+
+# Backend
+backend/.env
+
