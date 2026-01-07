@@ -2,105 +2,73 @@ const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET, JWT_EXPIRES_IN } = require('../../config/env');
+const AppError = require('../../utils/AppError');
+
+
 
 // ===============================
 // REGISTER
 // ===============================
-const register = async (req, res) => {
+const register = async (req, res, next) => {
   try {
-    const { email, password, role } = req.body || {};
+    const { email, password, name } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({
-        message: 'Email y contraseña son obligatorios'
-      });
+    if (!email || !password || !name) {
+      throw new AppError('Todos los campos son obligatorios', 400);
     }
 
-    const userExists = await User.findOne({ email });
-    if (userExists) {
-      return res.status(400).json({
-        message: 'El usuario ya existe'
-      });
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      throw new AppError('El usuario ya existe', 409);
     }
 
     const user = await User.create({
       email,
       password,
-      role
+      name
     });
 
-    return res.status(201).json({
-      message: 'Usuario creado correctamente',
-      user: {
-        id: user._id,
-        email: user.email,
-        role: user.role
-      }
+    res.status(201).json({
+      success: true,
+      message: 'Usuario registrado correctamente'
     });
-
   } catch (error) {
-    console.error('ERROR REGISTER:', error);
-    return res.status(500).json({
-      message: error.message
-    });
+    next(error);
   }
 };
-
 // ===============================
 // LOGIN + JWT
 // ===============================
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   try {
-    const { email, password } = req.body || {};
+    const { email, password } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({
-        message: 'Email y contraseña son obligatorios'
-      });
+      throw new AppError('Email y contraseña son obligatorios', 400);
     }
 
-    const user = await User.findOne({ email }).select('+password');
-
+    const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({
-        message: 'Credenciales inválidas'
-      });
+      throw new AppError('Credenciales inválidas', 401);
     }
 
-    const isMatch = await bcrypt.compare(password, user.password);
-
+    const isMatch = await user.comparePassword(password);
     if (!isMatch) {
-      return res.status(401).json({
-        message: 'Credenciales inválidas'
-      });
+      throw new AppError('Credenciales inválidas', 401);
     }
 
     const token = jwt.sign(
-      {
-        id: user._id,
-        role: user.role
-      },
-      JWT_SECRET,
-      {
-        expiresIn: JWT_EXPIRES_IN
-      }
+      { id: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
     );
 
-    return res.status(200).json({
-      message: 'Login exitoso',
-      token,
-      user: {
-        id: user._id,
-        email: user.email,
-        role: user.role
-      }
+    res.status(200).json({
+      success: true,
+      token
     });
-
   } catch (error) {
-    console.error('ERROR LOGIN:', error);
-    return res.status(500).json({
-      message: error.message
-    });
+    next(error); // 👈 CLAVE
   }
 };
 

@@ -1,8 +1,15 @@
 const express = require('express');
 const healthRoutes = require('./routes/health.routes');
+const authRoutes = require('./routes/auth/auth.routes');
+const protectedRoutes = require('./routes/protected.routes');
+const errorHandler = require('./middlewares/error.middleware');
+
 
 const app = express();
 
+app.set('trust proxy', 1);
+
+// Middleware 
 app.use((req, res, next) => {
   if (
     req.method === 'GET' &&
@@ -13,18 +20,34 @@ app.use((req, res, next) => {
   next();
 });
 
+// JSON parser 
+app.use(express.json({ strict: true }));
 
-app.use(express.json({
-  strict: true
-}));
+// ✅ RUTA BASE 
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    message: 'Backend activo',
+    version: '1.0.0'
+  });
+});
+
+// Rutas existentes 
 app.use('/api/health', healthRoutes);
-
-const authRoutes = require('./routes/auth/auth.routes');
-
 app.use('/api/auth', authRoutes);
-
-const protectedRoutes = require('./routes/protected.routes');
-
 app.use('/api/protected', protectedRoutes);
+
+// ❌ Ruta no encontrada
+app.use((req, res, next) => {
+  res.status(404).json({
+    success: false,
+    message: 'Ruta no encontrada'
+  });
+});
+
+// ❌ Middleware de errores (SIEMPRE el último)
+app.use(errorHandler);
+
+
 
 module.exports = app;
