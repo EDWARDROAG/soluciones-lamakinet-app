@@ -121,5 +121,12 @@
   });
 })();
 
+const whatsappBtn = document.querySelector('.whatsapp-float');
+
+window.addEventListener('scroll', () => {
+    whatsappBtn.style.bottom = '40%';
+});
+
+
 
 

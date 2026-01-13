@@ -3,6 +3,7 @@ const healthRoutes = require('./routes/health.routes');
 const authRoutes = require('./routes/auth/auth.routes');
 const protectedRoutes = require('./routes/protected.routes');
 const errorHandler = require('./middlewares/error.middleware');
+const clientRoutes = require('./routes/client.routes');
 
 
 const app = express();
@@ -32,7 +33,13 @@ app.get('/', (req, res) => {
   });
 });
 
+console.log('clientRoutes:', typeof clientRoutes);
+console.log('healthRoutes:', typeof healthRoutes);
+console.log('authRoutes:', typeof authRoutes);
+console.log('protectedRoutes:', typeof protectedRoutes);
+
 // Rutas existentes 
+app.use('/api/clients', clientRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/protected', protectedRoutes);
