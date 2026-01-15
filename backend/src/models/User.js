@@ -3,20 +3,43 @@ const bcrypt = require('bcryptjs');
 
 const userSchema = new mongoose.Schema(
   {
+    firstName: {
+      type: String,
+      required: [true, 'El nombre es obligatorio'],
+      trim: true
+    },
+
+    lastName: {
+      type: String,
+      required: [true, 'El apellido es obligatorio'],
+      trim: true
+    },
+
     email: {
       type: String,
-      required: true,
+      required: [true, 'El correo es obligatorio'],
       unique: true,
       lowercase: true,
       trim: true
     },
+
+    phone: {
+      type: String,
+      required: [true, 'El teléfono es obligatorio'],
+      trim: true
+    },
+
     password: {
       type: String,
-      required: true
+      required: [true, 'La contraseña es obligatoria'],
+      minlength: 6,
+      select: false
     },
+
     role: {
       type: String,
-      default: 'operador'
+      enum: ['user', 'admin'],
+      default: 'user'
     }
   },
   {
@@ -24,18 +47,21 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// 🔐 Hash automático del password
-userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) return next();
+/**
+ * 🔐 Hash de contraseña antes de guardar
+ */
+userSchema.pre('save', async function () {
+  if (!this.isModified('password')) return;
 
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
-// 🔑 MÉTODO PARA LOGIN (ESTO ERA LO QUE FALTABA)
-userSchema.methods.comparePassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+
+/**
+ * 🔑 Comparar contraseña (login)
+ */
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
 };
 
 module.exports = mongoose.model('User', userSchema);

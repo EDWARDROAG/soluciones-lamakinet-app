@@ -4,11 +4,35 @@ const authRoutes = require('./routes/auth/auth.routes');
 const protectedRoutes = require('./routes/protected.routes');
 const errorHandler = require('./middlewares/error.middleware');
 const clientRoutes = require('./routes/client.routes');
+const helmet = require('helmet');
+const cors = require('cors');
+const userRoutes = require('./routes/user.routes');
+
 
 
 const app = express();
 
 app.set('trust proxy', 1);
+app.use(helmet());
+const corsOptions = {
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173' // frontend local 
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
+};
+
+app.use(cors({
+  origin: [
+    'http://localhost',
+    'http://localhost:5173',
+    'http://127.0.0.1',
+    'http://127.0.0.1:5500'
+  ],
+  credentials: true
+}));
 
 // Middleware 
 app.use((req, res, next) => {
@@ -42,6 +66,7 @@ console.log('protectedRoutes:', typeof protectedRoutes);
 app.use('/api/clients', clientRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.use('/api/protected', protectedRoutes);
 
 // ❌ Ruta no encontrada

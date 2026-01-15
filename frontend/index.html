@@ -5,25 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Papelería Lamakinet | Hacemos práctica tu vida</title>
 
-  <!-- CSS -->
+  <link rel="icon" href="data:,">
   <link rel="stylesheet" href="styles/main.css" />
 </head>
+
+<body id="top">
 
 <!-- ================= LOGIN MODAL ================= -->
 <div id="login-modal" class="login-modal" aria-hidden="true">
   <div class="login-box" role="dialog" aria-labelledby="login-title">
-    <h2 id="login-title">Iniciar sesión</h2>
+    <h2 id="login-title">Acceso al sistema</h2>
 
     <form id="login-form">
-      <label>
-        Usuario
-        <input type="text" id="login-user" required />
-      </label>
-
-      <label>
-        Contraseña
-        <input type="password" id="login-pass" required />
-      </label>
+      <label>Usuario <input type="text" id="login-user" required /></label>
+      <label>Contraseña <input type="password" id="login-pass" required /></label>
 
       <div class="login-actions">
         <button type="submit" class="btn btn-primary">Ingresar</button>
@@ -32,123 +27,288 @@
         </button>
       </div>
 
-      <p id="login-error" class="login-error" hidden>
-        Por favor completa todos los campos.
-      </p>
+      <p id="login-error" class="login-error" hidden></p>
+
+      <div class="login-links">
+        <button type="button" id="btn-show-register" class="link-btn">Crear cuenta</button>
+        <button type="button" id="btn-show-recover" class="link-btn">¿Olvidaste tu contraseña?</button>
+      </div>
+    </form>
+
+    <!-- REGISTRO -->
+    <form id="register-form" hidden>
+      <label>Nombre <input type="text" id="register-name" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"title="Solo letras" /></label>
+      <label>Apellido <input type="text" id="register-lastname" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"title="Solo letras" /></label>
+      <label>Correo <input type="email" id="register-email" required /></label>
+      <label>WhatsApp <input type="tel" id="register-phone" required /></label>
+      <label>Contraseña <input type="password" id="register-pass" required /></label>
+      <label>Confirmar contraseña <input type="password" id="register-pass-confirm" required /></label>
+
+      <div class="login-actions">
+        <button type="submit" class="btn btn-primary">Crear cuenta</button>
+        <button type="button" id="btn-cancel-register" class="btn btn-secondary">Cancelar</button>
+      </div>
+
+      <p id="register-error" class="login-error" hidden></p>
+    </form>
+
+    <!-- RECUPERACIÓN -->
+    <form id="recover-form" hidden>
+      <label>Correo electrónico <input type="email" id="recover-email" required /></label>
+      <div class="login-actions">
+        <button type="submit" class="btn btn-primary">Recuperar contraseña</button>
+        <button type="button" id="btn-cancel-recover" class="btn btn-secondary">Cancelar</button>
+      </div>
     </form>
   </div>
 </div>
 
-<body id="top">
-
 <!-- ================= HEADER ================= -->
-<header>
+<header class="site-header">
   <div class="header-content container">
+    <button class="menu-toggle" id="menu-toggle" aria-label="Menú">
+  ☰
+</button>
 
-    <div class="logo">Papelería Lamakinet</div>
-
-    <!-- Botón menú móvil -->
-    <button id="btn-menu" class="btn-menu" aria-label="Abrir menú">
-      ☰
-    </button>
-
-    <!-- Navegación -->
-    <nav aria-label="Navegación principal">
-      <ul class="nav-menu">
-        <li><a href="#top">Inicio</a></li>
-        <li><a href="#servicios">Servicios</a></li>
-        <li><a href="#proyectos">Proyectos</a></li>
-        <li><a href="#faq">Preguntas</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-      </ul>
-    </nav>
-
-    <div class="nav-actions">
-      <button class="btn btn-secondary">Buscar</button>
-      <button id="btn-login" class="btn btn-primary">Iniciar sesión</button>
-
+    <!-- IZQUIERDA: LOGO -->
+    <div class="header-left">
+      <a href="index.html" class="logo">
+        Papelería Lamakinet
+      </a>
     </div>
 
+    <!-- CENTRO: MENÚ -->
+    <nav class="header-nav">
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#blog">Blog</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+
+    <!-- DERECHA: ACCIONES -->
+    <div class="header-right">
+
+      <!-- BUSCAR -->
+      <button class="btn btn-secondary" id="btn-search">
+        Buscar
+      </button>
+
+      <!-- LOGIN -->
+      <button id="btn-login" class="btn btn-primary">
+        Iniciar sesión
+      </button>
+
+      <!-- USUARIO LOGUEADO -->
+      <div id="user-box" style="display:none; position:relative;">
+        <button id="user-name" class="user-toggle">
+          Hola, Usuario ▼
+        </button>
+
+        <ul id="user-menu" class="user-menu">
+          <li><button id="btn-profile">Mis datos</button></li>
+          <li><button id="btn-bonuses">Mis bonos</button></li>
+          <li><button id="btn-promos">Promociones</button></li>
+          <li><button id="btn-security">Seguridad</button></li>
+          <li class="divider"></li>
+          <li><button id="btn-logout" class="logout">Cerrar sesión</button></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- ================= PERFIL MODAL ================= -->
+<div id="profile-modal" class="login-modal" aria-hidden="true">
+  <div class="login-box">
+    <h2>Mis datos</h2>
+
+    <form id="profile-form">
+      <label>Nombre
+        <input type="text" id="profile-name" required>
+      </label>
+
+      <label>Apellido
+        <input type="text" id="profile-lastname" required>
+      </label>
+
+      <label>Correo
+        <input type="email" id="profile-email" required>
+      </label>
+
+      <label>WhatsApp
+        <input type="tel" id="profile-phone">
+      </label>
+
+      <div class="login-actions">
+        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        <button type="button" id="btn-close-profile" class="btn btn-secondary">
+          cerrar
+        </button>
+        <button
+  type="button"
+  id="btn-close-profile-final"
+  class="btn btn-secondary"
+  style="display:none"
+>
+  Cerrar
+</button>
+
+      </div>
+
+      
+
+      <p id="profile-msg" class="login-error" hidden></p>
+    </form>
+  </div>
+</div>
+
+
+    </div>
   </div>
 </header>
 
 <main>
 
+  <!-- ================= SEGURIDAD MODAL ================= -->
+<div id="security-modal" class="login-modal" aria-hidden="true">
+  <div class="login-box">
+    <h2>Seguridad</h2>
+
+    <form id="security-form">
+      <label>Contraseña actual
+        <input type="password" id="current-password" required>
+      </label>
+
+      <label>Nueva contraseña
+        <input type="password" id="new-password" required minlength="6">
+      </label>
+
+      <label>Confirmar nueva contraseña
+        <input type="password" id="confirm-new-password" required>
+      </label>
+
+      <div class="login-actions">
+        <button type="submit" class="btn btn-primary">
+          Cambiar contraseña
+        </button>
+
+        <button type="button" id="btn-close-security" class="btn btn-secondary">
+          cerrar
+        </button>
+      </div>
+
+      <p id="security-msg" class="login-error" hidden></p>
+    </form>
+  </div>
+</div>
+
 <!-- ================= HERO ================= -->
 <section class="hero">
-  <div class="container">
-    <h1>Hacemos práctica tu vida</h1>
-    <p>
-      Todo en papelería, impresiones, tecnología y servicios diarios
-      para estudiantes, hogares y negocios.
-    </p>
+  <div class="hero-bg"></div>
 
+  <div class="hero-content">
+    <h1>Hacemos práctica tu vida</h1>
+    <p>Todo en papelería, impresiones...</p>
     <div class="hero-buttons">
-      <a href="#servicios" class="btn btn-primary btn-lg">Ver servicios</a>
-      <a href="#contacto" class="btn btn-secondary btn-lg">Contactar</a>
+      <a class="btn btn-primary">Ver servicios</a>
+      <a class="btn btn-secondary">Contactar</a>
     </div>
+  </div>
+</section> 
+
+  <!--  SOBRE NOSOTROS -->
+
+<section id="nosotros" class="about-section">
+  <div class="container about-grid">
+
+    <!-- IMAGEN -->
+    <div class="about-image">
+      <img
+        src="assets/images/about.png.png"
+        alt="Equipo Papelería Lamakinet"
+      />
+    </div>
+
+    <!-- TEXTO -->
+    <div class="about-content">
+      <h2>Sobre nosotros</h2>
+      <span class="about-line"></span>
+
+      <p>
+        Somos <strong>Papelería Lamakinet</strong>, un negocio comprometido con
+        facilitar la vida de estudiantes, hogares y empresas.
+        Combinamos papelería, impresión, tecnología y servicios digitales
+        para ofrecer soluciones prácticas, rápidas y confiables.
+      </p>
+
+      <p>
+        Nuestro enfoque es cercano, eficiente y orientado a brindar
+        una experiencia clara y útil a cada cliente que confía en nosotros.
+      </p>
+    </div>
+
   </div>
 </section>
 
+
 <!-- ================= SERVICIOS ================= -->
-<section id="servicios">
+<section id="servicios" class="services-modern">
   <div class="container">
-    <h2>Nuestros servicios</h2>
 
-    <div class="cards">
+    <h2 class="services-title">
+      Nuestros servicios
+    </h2>
+    <span class="services-line"></span>
 
-      <article class="card">
-        <h3>🧾 Servicios rápidos</h3>
-        <ul>
-          <li>Pago de servicios públicos</li>
-          <li>Recargas a todo operador</li>
-          <li>Consultas y certificados</li>
-        </ul>
+    <div class="services-grid">
+
+      <article class="service-card green">
+        <span class="service-icon">⭐</span>
+        <h3>Servicios rápidos</h3>
+        <p>
+          Pagos, recargas, consultas y certificados
+          de forma rápida y segura.
+        </p>
+        <a href="maintenance.html" class="service-btn">
+  Ver servicio
+</a>
       </article>
 
-      <article class="card">
-        <h3>📄 Impresión y copiado</h3>
-        <ul>
-          <li>Copias y escáner</li>
-          <li>Impresión B/N y color</li>
-          <li>Gran formato y plotter</li>
-          <li>Papel fotográfico y especial</li>
-        </ul>
+      <article class="service-card purple">
+        <span class="service-icon">⭐</span>
+        <h3>Impresión y copiado</h3>
+        <p>
+          Copias, impresión B/N y color, gran formato
+          y papel especial.
+        </p>
+        <a href="maintenance.html" class="service-btn">
+  Ver servicio
+</a>
       </article>
 
-      <article class="card">
-        <h3>📢 Publicidad</h3>
-        <ul>
-          <li>Volantes y tarjetas por millar</li>
-          <li>Publicidad al por mayor</li>
-          <li>Mugs personalizados</li>
-        </ul>
+      <article class="service-card cyan">
+        <span class="service-icon">⭐</span>
+        <h3>Publicidad</h3>
+        <p>
+          Volantes, tarjetas, publicidad al por mayor
+          y mugs personalizados.
+        </p>
+        <a href="https://smartmedios.com.co/" class="service-btn">
+  Ver servicio
+</a>
       </article>
 
-      <article class="card">
-        <h3>🎓 Académico</h3>
-        <ul>
-          <li>Elaboración de maquetas</li>
-          <li>Insumos para maquetas</li>
-          <li>Cartas y certificaciones</li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <h3>💻 Tecnología</h3>
-        <ul>
-          <li>Reparación de portátiles</li>
-          <li>Venta de tecnología</li>
-          <li>Soporte y asesoría</li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <h3>🌐 Servicios digitales</h3>
-        <ul>
-          <li>Diseño de páginas web</li>
-          <li>Tarjetas digitales</li>
-        </ul>
+      <article class="service-card orange">
+        <span class="service-icon">⭐</span>
+        <h3>Servicios digitales</h3>
+        <p>
+          Diseño web, tarjetas digitales y soluciones
+          tecnológicas para tu negocio.
+        </p>
+        <a href="maintenance.html" class="service-btn">
+  Ver servicio
+</a>
       </article>
 
     </div>
@@ -166,45 +326,24 @@
     </p>
 
     <div style="text-align:center;">
-      <a href="proyectos.html" class="btn btn-primary">
+      <a href="maintenance.html" class="btn btn-primary">
         Ver proyectos
       </a>
     </div>
   </div>
 </section>
 
-<!-- ================= FAQ (CARDS) ================= -->
+<!-- ================= FAQ ================= -->
 <section id="faq">
   <div class="container">
     <h2>Preguntas frecuentes</h2>
 
     <div class="cards">
-
-      <article class="card">
-        <h3>¿Atienden trabajos urgentes?</h3>
-        <p>Sí, damos prioridad según la necesidad del cliente.</p>
-      </article>
-
-      <article class="card">
-        <h3>¿Puedo enviar archivos por WhatsApp?</h3>
-        <p>Sí, recibimos archivos por WhatsApp, USB y correo.</p>
-      </article>
-
-      <article class="card">
-        <h3>¿Hacen impresiones en gran formato?</h3>
-        <p>Sí, contamos con impresión gran formato y plotter.</p>
-      </article>
-
-      <article class="card">
-        <h3>¿Reparan computadores portátiles?</h3>
-        <p>Sí, realizamos diagnóstico y reparación.</p>
-      </article>
-
-      <article class="card">
-        <h3>¿Atienden fines de semana?</h3>
-        <p>Sí, abrimos sábados y domingos.</p>
-      </article>
-
+      <article class="card"><h3>¿Atienden trabajos urgentes?</h3><p>Sí, damos prioridad.</p></article>
+      <article class="card"><h3>¿Envío archivos por WhatsApp?</h3><p>Sí.</p></article>
+      <article class="card"><h3>¿Gran formato?</h3><p>Sí.</p></article>
+      <article class="card"><h3>¿Reparan portátiles?</h3><p>Sí.</p></article>
+      <article class="card"><h3>¿Fines de semana?</h3><p>Sí.</p></article>
     </div>
   </div>
 </section>
@@ -212,40 +351,60 @@
 </main>
 
 <!-- ================= FOOTER ================= -->
-<footer id="contacto">
-  <div class="container">
+<footer class="site-footer" id="contacto">
+  <div class="container footer-grid">
 
-    <h3>Horarios de atención</h3>
-    <ul style="list-style:none; padding:0; margin:20px 0;">
-      <li>Lunes a viernes: 6:00 a.m. – 9:00 p.m.</li>
-      <li>Sábados: 7:00 a.m. – 8:00 p.m.</li>
-      <li>Domingos: 1:00 p.m. – 9:00 p.m.</li>
-    </ul>
+    <!-- COLUMNA 1: MARCA -->
+    <div class="footer-brand">
+      <h3 class="footer-logo">Papelería Lamakinet</h3>
+      <p>
+        Negocio enfocado en soluciones prácticas para estudiantes,
+        hogares y empresas. Papelería, impresión, tecnología y
+        servicios digitales en un solo lugar.
+      </p>
 
-    <div style="margin:25px 0;">
-      <a href="#" aria-label="Facebook">Facebook</a>
-      <a href="#" aria-label="TikTok">TikTok</a>
-      <a href="#" aria-label="Instagram">Instagram</a>
+      <div class="footer-social">
+        <a href="#" aria-label="Facebook">🌐</a>
+        <a href="#" aria-label="Instagram">📸</a>
+      </div>
     </div>
 
-    <p>© Soluciones Lamakinet – Todos los derechos reservados</p>
-    <p>Creado por <strong>Soluciones Lamakinet</strong></p>
+    <!-- COLUMNA 2: MAPA DE SITIO -->
+    <div class="footer-links">
+      <h4>Mapa de sitio</h4>
+      <ul>
+        <li><a href="#top">Inicio</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
 
+    <!-- COLUMNA 3: CONTACTO -->
+    <div class="footer-contact">
+      <h4>Contacto</h4>
+      <ul>
+        <li>📞 +57 311 561 0825</li>
+        <li>✉️ papelerialamakinet@gmail.com</li>
+        <li>📍 Bogotá, Colombia</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- BARRA INFERIOR -->
+  <div class="footer-bottom">
+    © Papelería Lamakinet – Todos los derechos reservados
   </div>
 </footer>
 
-<!-- ================= WHATSAPP ================= -->
-<a href="https://wa.me/573115610825"
-   class="whatsapp-float"
-   target="_blank"
-   aria-label="Contactar por WhatsApp">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-       alt="WhatsApp">
+<a href="https://wa.me/573115610825" class="whatsapp-float" target="_blank">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
 </a>
 
-
-<!-- ================= JS ================= -->
 <script src="js/main.js"></script>
-
 </body>
 </html>
+
+

@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../config/env');
+const User = require('../models/User');
 
-const authMiddleware = (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
@@ -15,11 +16,17 @@ const authMiddleware = (req, res, next) => {
 
     const decoded = jwt.verify(token, JWT_SECRET);
 
-    // Adjuntamos info útil del usuario
-    req.user = {
-      id: decoded.id,
-      role: decoded.role
-    };
+    // 🔑 BUSCAR USUARIO REAL EN BD
+    const user = await User.findById(decoded.id).select('-password');
+
+    if (!user) {
+      return res.status(401).json({
+        message: 'Usuario no encontrado'
+      });
+    }
+
+    // 👤 Usuario COMPLETO
+    req.user = user;
 
     next();
   } catch (error) {
