@@ -1,122 +1,249 @@
 # Proyecto Soluciones La Mákinet
 
-Aplicación web empresarial desarrollada bajo contrato de prestación de servicios,  
-orientada a servir como **base tecnológica para la gestión de información interna**  
-y futuras ampliaciones funcionales del sistema.
+Aplicación web desarrollada bajo contrato de prestación de servicios profesionales, diseñada como una base tecnológica segura, modular y escalable para la gestión de usuarios y la futura expansión de funcionalidades del negocio.
 
 ---
 
 ## Objetivo del proyecto
 
-Desarrollar una aplicación web empresarial **modular y segura** que permita:
+Construir una plataforma web que permita:
 
-- Gestionar usuarios de forma segura  
-- Controlar accesos mediante autenticación  
-- Proteger información sensible  
-- Servir como base para futuras fases funcionales y de negocio  
+- Registro y autenticación segura de usuarios
+- Gestión completa del perfil de usuario
+- Cambio de contraseña con validaciones de seguridad
+- Control de acceso mediante JWT
+- Protección de información sensible
+- Integración funcional entre frontend y backend
+- Base sólida para módulos futuros (servicios, bonos, promociones, panel administrativo)
 
 ---
 
-##  Estado actual del proyecto
+## Estado actual del proyecto
 
-### **Fase 2 — Backend funcional con autenticación y seguridad básica**
+### Semana 5 – Integración y seguridad (COMPLETA)
 
-Actualmente el proyecto cuenta con un **backend completamente operativo**, que incluye:
+El sistema cuenta actualmente con:
 
-- API desarrollada en Node.js y Express  
-- Conexión a base de datos MongoDB  
-- Sistema de autenticación mediante JSON Web Tokens (JWT)  
-- Registro y login de usuarios  
-- Rutas protegidas mediante middleware de autenticación  
-- CRUD completo de clientes  
-- Validación de identificadores (ObjectId)  
-- Manejo profesional de errores HTTP  
-- Endpoint de verificación del estado del sistema (health check)  
-- Pruebas manuales completas de todas las operaciones  
+- Backend en Node.js y Express completamente funcional
+- Conexión estable a base de datos MongoDB
+- Autenticación y autorización mediante JWT
+- Registro y login de usuarios con validaciones
+- Perfil de usuario (consulta y actualización de datos)
+- Cambio de contraseña seguro con verificación previa
+- Middleware de protección de rutas
+- Manejo estandarizado de errores HTTP (401, 404, 500)
+- Frontend integrado y operativo
+- Pruebas funcionales manuales de todos los flujos críticos
 
 ---
 
 ## Tecnologías utilizadas
 
-- Node.js  
-- Express  
-- MongoDB  
-- Mongoose  
-- JSON Web Tokens (JWT)  
-- dotenv  
-- Helmet (seguridad HTTP básica)  
-- Nodemon (entorno de desarrollo)  
+### Backend
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+- JSON Web Tokens (JWT)
+- bcrypt
+- dotenv
+- helmet
+- nodemon
+
+### Frontend
+- HTML5
+- CSS3 diseño responsive
+- JavaScript vanilla
 
 ---
 
-##  Endpoints principales
+## Endpoints del sistema
 
-###  Autenticación
+### Autenticación
 
-- **POST** `/api/auth/register`  
-  Registro de nuevos usuarios.
+#### Registro de usuario
+**POST** `/api/auth/register`
 
-- **POST** `/api/auth/login`  
-  Autenticación de usuarios y generación de token JWT.
+Body:
+```json
+{
+  "firstName": "Nombre",
+  "lastName": "Apellido",
+  "email": "usuario@email.com",
+  "phone": "3110000000",
+  "password": "123456"
+}
+```
 
----
-
-###  Clientes (rutas protegidas)
-
-> Requieren header:  
-> `Authorization: Bearer <token>`
-
-- **POST** `/api/clients`  
-  Crear cliente.
-
-- **GET** `/api/clients`  
-  Listar clientes del usuario autenticado.
-
-- **GET** `/api/clients/:id`  
-  Obtener cliente por ID.
-
-- **PUT** `/api/clients/:id`  
-  Actualizar cliente.
-
-- **DELETE** `/api/clients/:id`  
-  Eliminar cliente.
+- Valida campos obligatorios
+- Valida tipos de datos
+- La contraseña se almacena hasheada
 
 ---
 
-###  Rutas protegidas de usuario
+#### Login
+**POST** `/api/auth/login`
 
-- **GET** `/api/protected/profile`  
-  Devuelve información del usuario autenticado.
+Body:
+```json
+{
+  "email": "usuario@email.com",
+  "password": "123456"
+}
+```
 
----
-
-###  Estado del sistema
-
-- **GET** `/api/health`  
-  Verificación del estado de la API y disponibilidad del backend.
-
----
-
-##  Estructura del proyecto
-
-```text
-frontend/        → Interfaz de usuario (pendiente de implementación)
-backend/
- ├── src/
- │   ├── app.js              → Configuración de Express y middlewares
- │   ├── routes/             → Definición de rutas
- │   ├── controllers/        → Lógica de negocio
- │   ├── middlewares/        → Autenticación y manejo de errores
- │   ├── config/             → Configuración de entorno y base de datos
- │   ├── models/             → Modelos de datos (Mongoose)
- │   └── utils/              → Utilidades y clases de error
- └── server.js               → Inicialización del servidor
-docs/            → Documentación del proyecto
-
+- Retorna token JWT
+- Responde 200 o 401 según credenciales
 
 ---
 
-Autor / Desarrollo
+## Usuario (Rutas protegidas)
 
-Proyecto desarrollado por Eduar Roa
-Bajo contrato de prestación de servicios para Soluciones La Mákinet
+Todas las rutas requieren el header:
+
+```
+Authorization: Bearer <token>
+```
+
+---
+
+#### Obtener perfil del usuario autenticado
+**GET** `/api/users/me`
+
+Respuesta:
+```json
+{
+  "firstName": "Nombre",
+  "lastName": "Apellido",
+  "email": "usuario@email.com",
+  "phone": "3110000000",
+  "role": "user"
+}
+```
+
+- No expone información sensible como la contraseña
+
+---
+
+#### Actualizar perfil del usuario
+**PUT** `/api/users/me`
+
+Body:
+```json
+{
+  "firstName": "NombreActualizado",
+  "lastName": "ApellidoActualizado",
+  "phone": "3000000000"
+}
+```
+
+- Solo permite modificar el usuario autenticado
+- Los cambios se persisten en la base de datos
+
+---
+
+#### Cambio de contraseña
+**PUT** `/api/users/change-password`
+
+Body:
+```json
+{
+  "currentPassword": "123456",
+  "newPassword": "1234567"
+}
+```
+
+- Verifica la contraseña actual
+- Hashea la nueva contraseña
+- La contraseña anterior deja de ser válida
+
+---
+
+## Seguridad y manejo de errores
+
+- Acceso sin token: 401 Unauthorized
+- Token inválido o expirado: 401 Unauthorized
+- Ruta inexistente: 404 Not Found
+- Error interno del servidor: 500 Internal Server Error
+
+---
+
+## Estructura del proyecto
+
+SOLUCIONES-LAMAKINET-APP/
+│
+├── frontend/                          → Interfaz de usuario (HTML, CSS, JS)
+│   ├── assets/
+│   │   └── images/
+│   │       ├── about.png.png
+│   │       ├── Captura.JPG
+│   │       └── hero-tech.png.png
+│   │
+│   ├── js/
+│   │   └── main.js                    → Lógica JS del frontend
+│   │
+│   ├── styles/
+│   │   └── main.css                   → Estilos globales
+│   │
+│   ├── admin.html                     → Vista administrador
+│   ├── create-user.html               → Creación de usuarios
+│   ├── forbidden.html                 → Vista 403
+│   ├── index.html                     → Página principal
+│   ├── maintenance.html               → Vista mantenimiento
+│   ├── user.html                      → Vista usuario
+│   │
+│   ├── node_modules/
+│   ├── .gitignore
+│   ├── package.json
+│   ├── package-lock.json
+│   └── README.md
+│
+├── backend/                           → API REST (Node.js + Express)
+│   ├── node_modules/
+│   │
+│   ├── src/
+│   │   ├── app.js                     → Configuración de Express y middlewares
+│   │   │
+│   │   ├── config/
+│   │   │   ├── db.js                  → Conexión a base de datos
+│   │   │   └── env.js                 → Variables de entorno
+│   │   │
+│   │   ├── controllers/
+│   │   │   ├── auth/                  → Controladores de autenticación
+│   │   │   ├── client.controller.js   → Lógica de clientes
+│   │   │   ├── health.controller.js   → Health check
+│   │   │   └── user.controller.js     → Lógica de usuarios
+│   │   │
+│   │   ├── middlewares/
+│   │   │   ├── auth.middleware.js     → Autenticación JWT
+│   │   │   ├── error.middleware.js    → Manejo centralizado de errores
+│   │   │   └── ratelimit.middleware.js→ Protección por rate limit
+│   │   │
+│   │   ├── models/
+│   │   │   ├── Client.js              → Modelo Client
+│   │   │   └── User.js                → Modelo User
+│   │   │
+│   │   ├── routes/                    → Definición de rutas (REST)
+│   │   └── utils/                     → Utilidades y helpers
+│   │
+│   ├── .env                           → Variables de entorno del backend
+│   ├── package.json
+│   ├── package-lock.json
+│   └── server.js                      → Inicialización del servidor
+│
+└── docs/                              → Documentación del proyecto
+
+## Próxima fase (Semana 6)
+
+- Despliegue en entorno productivo
+- Configuración de variables de entorno
+- Pruebas finales en producción
+- Validación contractual y cierre del proyecto
+
+---
+
+## Autor y desarrollo
+
+Proyecto desarrollado por Eduar Roa  
+Bajo contrato de prestación de servicios profesionales  
+Para Soluciones La Mákinet
