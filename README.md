@@ -20,11 +20,10 @@ Construir una plataforma web que permita:
 
 ## Estado actual del proyecto
 
-### Semana 5 – Integración y seguridad (COMPLETA)
+### **Semana 5 – Integración, refactor y seguridad (COMPLETA)**
 
-El sistema cuenta actualmente con:
-
-- Backend en Node.js y Express completamente funcional
+- Backend Node.js + Express refactorizado
+- Migración total de CommonJS a ES Modules
 - Conexión estable a base de datos MongoDB
 - Autenticación y autorización mediante JWT
 - Registro y login de usuarios con validaciones
