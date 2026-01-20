@@ -6,19 +6,30 @@
   <title>Papelería Lamakinet | Hacemos práctica tu vida</title>
 
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="styles/main.css" />
-</head>
+  <link rel="stylesheet" href="../styles/main.css" />
 
 <body id="top">
 
-<!-- ================= LOGIN MODAL ================= -->
+  <!-- ================= LOGIN MODAL ================= -->
 <div id="login-modal" class="login-modal" aria-hidden="true">
   <div class="login-box" role="dialog" aria-labelledby="login-title">
     <h2 id="login-title">Acceso al sistema</h2>
 
     <form id="login-form">
       <label>Usuario <input type="text" id="login-user" required /></label>
-      <label>Contraseña <input type="password" id="login-pass" required /></label>
+      <label>
+  Contraseña
+  <div class="password-wrapper">
+    <input type="password" id="login-pass" required />
+    <button
+      type="button"
+      class="toggle-password"
+      aria-label="Mostrar contraseña"
+    >
+      👁️
+    </button>
+  </div>
+</label>
 
       <div class="login-actions">
         <button type="submit" class="btn btn-primary">Ingresar</button>
@@ -37,20 +48,101 @@
 
     <!-- REGISTRO -->
     <form id="register-form" hidden>
-      <label>Nombre <input type="text" id="register-name" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"title="Solo letras" /></label>
-      <label>Apellido <input type="text" id="register-lastname" required pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"title="Solo letras" /></label>
-      <label>Correo <input type="email" id="register-email" required /></label>
-      <label>WhatsApp <input type="tel" id="register-phone" required /></label>
-      <label>Contraseña <input type="password" id="register-pass" required /></label>
-      <label>Confirmar contraseña <input type="password" id="register-pass-confirm" required /></label>
 
-      <div class="login-actions">
-        <button type="submit" class="btn btn-primary">Crear cuenta</button>
-        <button type="button" id="btn-cancel-register" class="btn btn-secondary">Cancelar</button>
-      </div>
+  <label>
+    Nombre
+    <input
+      type="text"
+      id="register-name"
+      required
+      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"
+      title="Solo letras"
+    />
+  </label>
 
-      <p id="register-error" class="login-error" hidden></p>
-    </form>
+  <label>
+    Apellido
+    <input
+      type="text"
+      id="register-lastname"
+      required
+      pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+"
+      title="Solo letras"
+    />
+  </label>
+
+  <label>
+    Correo
+    <input
+      type="email"
+      id="register-email"
+      required
+    />
+  </label>
+
+  <label>
+    WhatsApp
+    <input
+      type="tel"
+      id="register-phone"
+      required
+    />
+  </label>
+
+  <!-- CONTRASEÑA -->
+  <label>
+    Contraseña
+    <div class="password-wrapper">
+      <input
+        type="password"
+        id="register-password"
+        required
+      />
+      <button
+        type="button"
+        class="toggle-password"
+        aria-label="Mostrar contraseña"
+      >
+        👁️
+      </button>
+    </div>
+  </label>
+
+  <!-- CONFIRMAR CONTRASEÑA -->
+  <label>
+    Confirmar contraseña
+    <div class="password-wrapper">
+      <input
+        type="password"
+        id="register-password-confirm"
+        required
+      />
+      <button
+        type="button"
+        class="toggle-password"
+        aria-label="Mostrar contraseña"
+      >
+        👁️
+      </button>
+    </div>
+  </label>
+
+  <div class="login-actions">
+    <button type="submit" class="btn btn-primary">
+      Crear cuenta
+    </button>
+    <button
+      type="button"
+      id="btn-cancel-register"
+      class="btn btn-secondary"
+    >
+      Cancelar
+    </button>
+  </div>
+
+  <p id="register-error" class="login-error" hidden></p>
+</form>
+
 
     <!-- RECUPERACIÓN -->
     <form id="recover-form" hidden>
@@ -81,7 +173,7 @@
     <nav class="header-nav">
       <a href="#servicios">Servicios</a>
       <a href="#nosotros">Nosotros</a>
-      <a href="#blog">Blog</a>
+      <a href="maintenance.html">Blog</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
@@ -132,9 +224,18 @@
         <input type="text" id="profile-lastname" required>
       </label>
 
-      <label>Correo
-        <input type="email" id="profile-email" required>
-      </label>
+      <label>
+  Correo
+  <input
+    type="email"
+    id="profile-email"
+    disabled
+    class="input-disabled"
+  />
+  <small class="input-hint">
+    El correo no se puede modificar.
+  </small>
+</label>
 
       <label>WhatsApp
         <input type="tel" id="profile-phone">
@@ -176,16 +277,62 @@
     <h2>Seguridad</h2>
 
     <form id="security-form">
-      <label>Contraseña actual
-        <input type="password" id="current-password" required>
+
+      <!-- CONTRASEÑA ACTUAL -->
+      <label>
+        Contraseña actual
+        <div class="password-wrapper">
+          <input
+            type="password"
+            id="current-password"
+            required
+          />
+          <button
+            type="button"
+            class="toggle-password"
+            aria-label="Mostrar contraseña"
+          >
+            👁️
+          </button>
+        </div>
       </label>
 
-      <label>Nueva contraseña
-        <input type="password" id="new-password" required minlength="6">
+      <!-- NUEVA CONTRASEÑA -->
+      <label>
+        Nueva contraseña
+        <div class="password-wrapper">
+          <input
+            type="password"
+            id="new-password"
+            required
+          />
+          <button
+            type="button"
+            class="toggle-password"
+            aria-label="Mostrar contraseña"
+          >
+            👁️
+          </button>
+        </div>
       </label>
 
-      <label>Confirmar nueva contraseña
-        <input type="password" id="confirm-new-password" required>
+      <!-- CONFIRMAR NUEVA CONTRASEÑA -->
+      <label>
+        Confirmar nueva contraseña
+        <div class="password-wrapper">
+          <input
+            type="password"
+            id="confirm-new-password"
+            required
+          />
+          <button
+            type="button"
+            class="toggle-password"
+            aria-label="Mostrar contraseña"
+          >
+            👁️
+          </button>
+        </div>
       </label>
 
       <div class="login-actions">
@@ -193,12 +340,17 @@
           Cambiar contraseña
         </button>
 
-        <button type="button" id="btn-close-security" class="btn btn-secondary">
-          cerrar
+        <button
+          type="button"
+          id="btn-close-security"
+          class="btn btn-secondary"
+        >
+          Cerrar
         </button>
       </div>
 
       <p id="security-msg" class="login-error" hidden></p>
+
     </form>
   </div>
 </div>
@@ -224,10 +376,9 @@
 
     <!-- IMAGEN -->
     <div class="about-image">
-      <img
-        src="assets/images/about.png.png"
-        alt="Equipo Papelería Lamakinet"
-      />
+      <img src="../assets/images/escritorio.png"
+       alt="Equipo Papelería Lamakinet" />
+
     </div>
 
     <!-- TEXTO -->
@@ -387,7 +538,7 @@
       <ul>
         <li>📞 +57 311 561 0825</li>
         <li>✉️ papelerialamakinet@gmail.com</li>
-        <li>📍 Bogotá, Colombia</li>
+        <li>📍 https://share.google/oJdFqd2LVSnUp9bzA Bogotá, Colombia</li>
       </ul>
     </div>
 
@@ -398,13 +549,18 @@
     © Papelería Lamakinet – Todos los derechos reservados
   </div>
 </footer>
+<!-- ================= WHATSAPP ================= -->
+  <a href="#" class="whatsapp-float">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+      alt="WhatsApp"
+    />
+  </a>
 
-<a href="https://wa.me/573115610825" class="whatsapp-float" target="_blank">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-</a>
+  
+  <script type="module" src="./js/main.js"></script>
 
-<script src="js/main.js"></script>
+
+
 </body>
 </html>
-
-

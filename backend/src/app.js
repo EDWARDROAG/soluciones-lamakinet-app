@@ -1,32 +1,23 @@
-const express = require('express');
-const healthRoutes = require('./routes/health.routes');
-const authRoutes = require('./routes/auth/auth.routes');
-const protectedRoutes = require('./routes/protected.routes');
-const errorHandler = require('./middlewares/error.middleware');
-const clientRoutes = require('./routes/client.routes');
-const helmet = require('helmet');
-const cors = require('cors');
-const userRoutes = require('./routes/user.routes');
+import express from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
 
+import healthRoutes from './routes/health.routes.js';
+import authRoutes from './routes/auth/auth.routes.js';
+import clientRoutes from './routes/client.routes.js';
+import userRoutes from './routes/user.routes.js';
 
+import errorHandler from './middlewares/error.middleware.js';
 
 const app = express();
 
 app.set('trust proxy', 1);
 app.use(helmet());
-const corsOptions = {
-  origin: [
-    'http://localhost:3000',
-    'http://localhost:5173' // frontend local 
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-};
 
 app.use(cors({
   origin: [
     'http://localhost',
+    'http://localhost:3000',
     'http://localhost:5173',
     'http://127.0.0.1',
     'http://127.0.0.1:5500'
@@ -34,7 +25,7 @@ app.use(cors({
   credentials: true
 }));
 
-// Middleware 
+// Middleware de compatibilidad
 app.use((req, res, next) => {
   if (
     req.method === 'GET' &&
@@ -45,10 +36,10 @@ app.use((req, res, next) => {
   next();
 });
 
-// JSON parser 
+// JSON parser
 app.use(express.json({ strict: true }));
 
-// ✅ RUTA BASE 
+// ✅ RUTA BASE
 app.get('/', (req, res) => {
   res.status(200).json({
     status: 'ok',
@@ -57,20 +48,15 @@ app.get('/', (req, res) => {
   });
 });
 
-console.log('clientRoutes:', typeof clientRoutes);
-console.log('healthRoutes:', typeof healthRoutes);
-console.log('authRoutes:', typeof authRoutes);
-console.log('protectedRoutes:', typeof protectedRoutes);
-
-// Rutas existentes 
+// Rutas
 app.use('/api/clients', clientRoutes);
 app.use('/api/health', healthRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/protected', protectedRoutes);
+
 
 // ❌ Ruta no encontrada
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: 'Ruta no encontrada'
@@ -80,6 +66,4 @@ app.use((req, res, next) => {
 // ❌ Middleware de errores (SIEMPRE el último)
 app.use(errorHandler);
 
-
-
-module.exports = app;
+export default app;

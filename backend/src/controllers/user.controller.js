@@ -1,9 +1,9 @@
-const User = require('../models/User');
+import User from '../models/User.js';
 
 // ===============================
 // LISTAR USUARIOS
 // ===============================
-const getUsers = async (req, res, next) => {
+export const getUsers = async (req, res, next) => {
   try {
     const users = await User.find().select('-password');
 
@@ -14,8 +14,4 @@ const getUsers = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-
-module.exports = {
-  getUsers
 };

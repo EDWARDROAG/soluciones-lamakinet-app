@@ -1,11 +1,12 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcryptjs');
-const authMiddleware = require('../middlewares/auth.middleware');
-const User = require('../models/User');
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import authMiddleware from '../middlewares/auth.middleware.js';
+import User from '../models/User.js';
 
-// 🔐 LISTAR USUARIOS (YA EXISTE – OK)
-router.get('/', authMiddleware, async (req, res) => {
+const router = express.Router();
+
+// 🔐 LISTAR USUARIOS
+router.get('/', authMiddleware, async (req, res, next) => {
   try {
     const users = await User.find().select('-password');
 
@@ -14,32 +15,25 @@ router.get('/', authMiddleware, async (req, res) => {
       data: users
     });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Error al obtener usuarios'
-    });
+    next(error);
   }
 });
-
 
 // ===============================
 // 👤 PERFIL DEL USUARIO LOGUEADO
 // ===============================
 
 // 🔹 OBTENER MIS DATOS
-router.get('/me', authMiddleware, async (req, res) => {
+router.get('/me', authMiddleware, async (req, res, next) => {
   try {
     res.status(200).json(req.user);
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Error al obtener perfil'
-    });
+    next(error);
   }
 });
 
 // 🔹 ACTUALIZAR MIS DATOS
-router.put('/me', authMiddleware, async (req, res) => {
+router.put('/me', authMiddleware, async (req, res, next) => {
   try {
     const { firstName, lastName, email, phone } = req.body;
 
@@ -53,16 +47,13 @@ router.put('/me', authMiddleware, async (req, res) => {
       success: true,
       data: userUpdated
     });
-
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: 'Error al actualizar perfil'
-    });
+    next(error);
   }
 });
 
-router.put('/change-password', authMiddleware, async (req, res) => {
+// 🔐 CAMBIO DE CONTRASEÑA
+router.put('/change-password', authMiddleware, async (req, res, next) => {
   try {
     const { currentPassword, newPassword } = req.body;
 
@@ -72,7 +63,6 @@ router.put('/change-password', authMiddleware, async (req, res) => {
       });
     }
 
-    // 🔑 VOLVER A CARGAR USUARIO CON PASSWORD
     const user = await User.findById(req.user._id).select('+password');
 
     if (!user) {
@@ -81,30 +71,22 @@ router.put('/change-password', authMiddleware, async (req, res) => {
       });
     }
 
-    const isMatch = await bcrypt.compare(
-      currentPassword,
-      user.password
-    );
-
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
     if (!isMatch) {
       return res.status(400).json({
         message: 'Contraseña actual incorrecta'
       });
     }
 
-    user.password = newPassword; 
-await user.save();           
+    user.password = newPassword;
+    await user.save();
 
     res.status(200).json({
       message: 'Contraseña actualizada correctamente'
     });
-
   } catch (error) {
-    console.error('❌ Error change-password:', error);
-    res.status(500).json({
-      message: 'Error al cambiar contraseña'
-    });
+    next(error);
   }
 });
 
-module.exports = router;
+export default router;

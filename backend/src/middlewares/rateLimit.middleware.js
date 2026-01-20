@@ -1,7 +1,7 @@
-const rateLimit = require('express-rate-limit');
+import rateLimit from 'express-rate-limit';
 
 const loginLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000,
+  windowMs: 15 * 60 * 1000, // 15 minutos
   max: 10,
   standardHeaders: true,
   legacyHeaders: false,
@@ -14,4 +14,4 @@ const loginLimiter = rateLimit({
   }
 });
 
-module.exports = loginLimiter;
+export default loginLimiter;

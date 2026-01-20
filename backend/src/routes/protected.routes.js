@@ -1,12 +1,16 @@
-const express = require('express');
-const router = express.Router();
-const authMiddleware = require('../middlewares/auth.middleware');
+import express from 'express';
+import authMiddleware from '../middlewares/auth.middleware.js';
 
-router.get('/profile', authMiddleware, (req, res) => {
+const router = express.Router();
+
+router.use(authMiddleware);
+
+router.get('/', (req, res) => {
   res.json({
-    message: 'Acceso autorizado',
+    success: true,
+    message: 'Ruta protegida OK',
     user: req.user
   });
 });
 
-module.exports = router;
+export default router;

@@ -1,34 +1,22 @@
-const express = require('express');
-const router = express.Router();
-
-
-const {
+import express from 'express';
+import {
   createClient,
   getClients,
   getClientById,
   updateClient,
   deleteClient
-} = require('../controllers/client.controller');
+} from '../controllers/client.controller.js';
 
-const authMiddleware = require('../middlewares/auth.middleware');
+import authMiddleware from '../middlewares/auth.middleware.js';
 
-// 🔐 Proteger todas las rutas de clientes
+const router = express.Router();
+
 router.use(authMiddleware);
 
-// ➕ Crear cliente
 router.post('/', createClient);
-
-// 📄 Obtener todos los clientes
 router.get('/', getClients);
-
-// 🔍 Obtener un cliente por ID
 router.get('/:id', getClientById);
-
-//  Editar cliente: UPDATE
-
 router.put('/:id', updateClient);
-
-//   Eliminar cliente: DELETE
 router.delete('/:id', deleteClient);
 
-module.exports = router;
+export default router;

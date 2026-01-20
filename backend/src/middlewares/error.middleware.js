@@ -1,12 +1,21 @@
+import AppError from '../utils/AppError.js';
+
 const errorHandler = (err, req, res, next) => {
-  console.error('❌ Error:', err.message);
+  console.error('❌ ERROR:', err);
 
-  const statusCode = err.statusCode || 500;
+  // Errores controlados
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      success: false,
+      message: err.message
+    });
+  }
 
-  res.status(statusCode).json({
+  // Errores no controlados
+  return res.status(500).json({
     success: false,
-    message: err.message || 'Error interno del servidor'
+    message: 'Error interno del servidor'
   });
 };
 
-module.exports = errorHandler;
+export default errorHandler;

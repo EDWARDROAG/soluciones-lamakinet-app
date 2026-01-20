@@ -1,12 +1,10 @@
+import app from './src/app.js';
+import { connectDB } from './src/config/db.js';
 
+const PORT = process.env.PORT || 3000;
 
-const app = require('./src/app');
-const { PORT } = require('./src/config/env');
-const connectDB = require('./src/config/db');
-
-connectDB();
+await connectDB();
 
 app.listen(PORT, () => {
-  console.log(`Servidor backend corriendo en puerto ${PORT}`);
+  console.log(`🚀 Servidor corriendo en puerto ${PORT}`);
 });
-
