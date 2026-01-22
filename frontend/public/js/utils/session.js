@@ -1,5 +1,9 @@
 // js/utils/session.js
-import { getToken, clearSession } from './storage.js';
+import {
+  getToken,
+  clearSession,
+  getSessionUser
+} from './storage.js';
 
 (function () {
   const btnLogin = document.getElementById('btn-login');
@@ -13,27 +17,33 @@ import { getToken, clearSession } from './storage.js';
 
   const token = getToken();
 
-  // ===== SIN SESIÓN =====
+  // =====================
+  // SIN SESIÓN
+  // =====================
   if (!token) {
     btnLogin.style.display = 'inline-block';
     userBox.style.display = 'none';
     return;
   }
 
-  // ===== CON SESIÓN =====
+  // =====================
+  // CON SESIÓN
+  // =====================
   btnLogin.style.display = 'none';
   userBox.style.display = 'inline-block';
 
-  // Mostrar nombre desde JWT (solo visual)
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const name = payload.firstName || payload.name || 'Usuario';
-    userToggle.textContent = `Hola, ${name} ▼`;
-  } catch {
+  // Mostrar nombre desde sesión (NO desde JWT)
+  const sessionUser = getSessionUser();
+
+  if (sessionUser?.firstName) {
+    userToggle.textContent = `Hola, ${sessionUser.firstName} ▼`;
+  } else {
     userToggle.textContent = 'Hola, Usuario ▼';
   }
 
+  // =====================
   // Abrir / cerrar menú usuario
+  // =====================
   userToggle.addEventListener('click', (e) => {
     e.stopPropagation();
     userMenu.style.display =
@@ -45,14 +55,28 @@ import { getToken, clearSession } from './storage.js';
     userMenu.style.display = 'none';
   });
 
+  // =====================
   // Logout
+  // =====================
   btnLogout.addEventListener('click', () => {
     clearSession();
     window.location.href = 'index.html';
   });
+
+  // =====================
+  // Escuchar cambios de usuario (reactivo)
+  // =====================
+  document.addEventListener('userUpdated', (e) => {
+    const user = e.detail;
+    if (user?.firstName) {
+      userToggle.textContent = `Hola, ${user.firstName} ▼`;
+    }
+  });
 })();
 
-// Abrir modal de perfil
+// =====================
+// MODAL PERFIL
+// =====================
 const btnProfile = document.getElementById('btn-profile');
 const profileModal = document.getElementById('profile-modal');
 const btnCloseProfile = document.getElementById('btn-close-profile');
@@ -67,6 +91,9 @@ btnCloseProfile?.addEventListener('click', () => {
   profileModal.setAttribute('aria-hidden', 'true');
 });
 
+// =====================
+// MODAL SEGURIDAD
+// =====================
 const btnSecurity = document.getElementById('btn-security');
 const securityModal = document.getElementById('security-modal');
 const btnCloseSecurity = document.getElementById('btn-close-security');
@@ -80,5 +107,3 @@ btnCloseSecurity?.addEventListener('click', () => {
   securityModal.classList.remove('active');
   securityModal.setAttribute('aria-hidden', 'true');
 });
-
-

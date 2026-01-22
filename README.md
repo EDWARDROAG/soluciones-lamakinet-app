@@ -121,14 +121,20 @@ Authorization: Bearer <token>
 #### Obtener perfil del usuario autenticado
 **GET** `/api/users/me`
 
+Authorization: Bearer <token>
+
+
 Respuesta:
 ```json
 {
-  "firstName": "Nombre",
-  "lastName": "Apellido",
-  "email": "usuario@email.com",
-  "phone": "3110000000",
-  "role": "user"
+  "_id": "6970251b3b777a1d1c95b346",
+  "firstName": "Pedro",
+  "lastName": "Mechudo",
+  "email": "calvo@gmail.com",
+  "phone": "3122252525",
+  "role": "user",
+  "createdAt": "2026-01-21T01:00:03.583Z",
+  "updatedAt": "2026-01-22T18:05:33.036Z"
 }
 ```
 
@@ -138,6 +144,7 @@ Respuesta:
 
 #### Actualizar perfil del usuario
 **PUT** `/api/users/me`
+Authorization: Bearer <token>
 
 Body:
 ```json
@@ -146,14 +153,23 @@ Body:
   "lastName": "ApellidoActualizado",
   "phone": "3000000000"
 }
-```
+
+respuesta esperada
+{ 
+ "_id": "6970251b3b777a1d1c95b346",
+  "firstName": "Pedro",
+  "lastName": "Mechudo",
+  "email": "calvo@gmail.com",
+  "phone": "3122252525",
+  "role": "user"
+}
 
 - Solo permite modificar el usuario autenticado
 - Los cambios se persisten en la base de datos
 
 ---
 
-### Cambio de contraseña (usuario autenticado)
+## Cambio de contraseña (usuario autenticado)
 
 POST /api/auth/change-password
 

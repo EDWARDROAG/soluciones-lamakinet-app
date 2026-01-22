@@ -1,4 +1,5 @@
 import { getProfile, updateProfile } from '../services/user.service.js';
+import { setSessionUser } from '../utils/storage.js';
 
 (function () {
   const btnProfile = document.getElementById('btn-profile');
@@ -15,14 +16,20 @@ import { getProfile, updateProfile } from '../services/user.service.js';
   const inputEmail     = document.getElementById('profile-email');
   const inputPhone     = document.getElementById('profile-phone');
 
-  // Abrir modal
+  // =========================
+  // Abrir modal y cargar datos
+  // =========================
   btnProfile.addEventListener('click', async () => {
+    console.log('CLICK EN MIS DATOS');
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
     msg.hidden = true;
 
     try {
+      console.log('ANTES DE getProfile'); // 👈 prueba 2
       const user = await getProfile();
+      console.log('RESPUESTA getProfile:', user); // 👈 prueba 3
+
       inputFirstName.value = user.firstName || '';
       inputLastName.value  = user.lastName || '';
       inputEmail.value     = user.email || '';
@@ -33,13 +40,17 @@ import { getProfile, updateProfile } from '../services/user.service.js';
     }
   });
 
+  // =========================
   // Cerrar modal
+  // =========================
   btnClose?.addEventListener('click', () => {
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
   });
 
+  // =========================
   // Guardar cambios
+  // =========================
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     msg.hidden = true;
@@ -51,7 +62,16 @@ import { getProfile, updateProfile } from '../services/user.service.js';
     };
 
     try {
-      await updateProfile(payload);
+      const updatedUser = await updateProfile(payload);
+
+      // 🔁 actualizar estado de sesión
+      setSessionUser(updatedUser);
+
+      // 🔔 notificar a toda la UI (navbar, etc.)
+      document.dispatchEvent(
+        new CustomEvent('userUpdated', { detail: updatedUser })
+      );
+
       msg.textContent = 'Datos actualizados correctamente';
       msg.hidden = false;
     } catch (err) {

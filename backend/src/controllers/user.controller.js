@@ -22,7 +22,16 @@ export const getUsers = async (req, res, next) => {
 // ===============================
 export const getMe = async (req, res, next) => {
   try {
-    res.status(200).json(req.user);
+    // ⚠️ usamos req.user.id (NO _id)
+    const user = await User.findById(req.user.id).select('-password');
+
+    if (!user) {
+      return res.status(404).json({
+        message: 'Usuario no encontrado'
+      });
+    }
+
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }
@@ -33,18 +42,15 @@ export const getMe = async (req, res, next) => {
 // ===============================
 export const updateMe = async (req, res, next) => {
   try {
-    const { firstName, lastName, email, phone } = req.body;
+    const { firstName, lastName, phone } = req.body;
 
     const userUpdated = await User.findByIdAndUpdate(
-      req.user._id,
-      { firstName, lastName, email, phone },
-      { new: true, select: '-password' }
-    );
+      req.user.id,
+      { firstName, lastName, phone },
+      { new: true }
+    ).select('-password');
 
-    res.status(200).json({
-      success: true,
-      data: userUpdated
-    });
+    res.status(200).json(userUpdated);
   } catch (error) {
     next(error);
   }
@@ -63,7 +69,7 @@ export const changePassword = async (req, res, next) => {
       });
     }
 
-    const user = await User.findById(req.user._id).select('+password');
+    const user = await User.findById(req.user.id).select('+password');
 
     if (!user) {
       return res.status(404).json({
@@ -82,13 +88,12 @@ export const changePassword = async (req, res, next) => {
       });
     }
 
-    // 🔐 HASH EXPLÍCITO (OPCIÓN 1)
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(newPassword, salt);
 
     await user.save();
 
-    return res.status(200).json({
+    res.status(200).json({
       message: 'Contraseña actualizada correctamente'
     });
   } catch (error) {
