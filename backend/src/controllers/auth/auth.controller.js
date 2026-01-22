@@ -168,6 +168,7 @@ export const changePassword = async (req, res, next) => {
       throw new AppError('Todos los campos son obligatorios', 400);
     }
 
+    // ⚠️ IMPORTANTE: +password
     const user = await User.findById(userId).select('+password');
     if (!user) {
       throw new AppError('Usuario no encontrado', 404);
@@ -178,12 +179,16 @@ export const changePassword = async (req, res, next) => {
       throw new AppError('Contraseña actual incorrecta', 400);
     }
 
-    // 🔑 CLAVE ABSOLUTA
+    // ✅ ASIGNAR EN PLANO
+    // ❌ NO hashear aquí
     user.password = newPassword;
-    await user.save(); // 👈 esto dispara el hash
+
+    // 🔥 AQUÍ se ejecuta el pre('save')
+    await user.save();
 
     res.json({ success: true });
   } catch (error) {
     next(error);
   }
 };
+

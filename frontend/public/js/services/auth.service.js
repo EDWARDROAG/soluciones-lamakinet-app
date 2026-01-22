@@ -33,7 +33,7 @@ export async function forgotPassword(email) {
       body: JSON.stringify({ email })
     });
   } catch {
-    // Mensaje neutro por seguridad
+   
     return true;
   }
 }
@@ -67,4 +67,38 @@ export async function changePassword(currentPassword, newPassword) {
     );
   }
 }
+
+
+
+export async function register(userData) {
+  try {
+    const response = await fetch(
+      'http://localhost:3000/api/auth/register',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok || !data?.token) {
+      throw new Error(data.message || 'Error en el registro');
+    }
+
+    // 🔐 AUTO-LOGIN: guardar token
+    setToken(data.token);
+
+    return data;
+  } catch (err) {
+    throw new Error(
+      err?.message || 'No fue posible crear la cuenta'
+    );
+  }
+}
+
+
 

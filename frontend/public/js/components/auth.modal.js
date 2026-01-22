@@ -1,7 +1,8 @@
 // js/components/auth.modal.js
 import {
   login,
-  forgotPassword
+  forgotPassword,
+  register
 } from '../services/auth.service.js';
 
 (function () {
@@ -17,7 +18,6 @@ import {
   const loginError = document.getElementById('login-error');
   const registerError = document.getElementById('register-error');
 
-  // Si no existe el modal en la página, no hacemos nada
   if (!btnLogin || !modal || !loginForm) return;
 
   // ===== FUNCIONES VISUALES =====
@@ -62,7 +62,6 @@ import {
   btnLogin.addEventListener('click', openModal);
   btnClose?.addEventListener('click', closeModal);
 
-  // ===== BOTONES CAMBIO DE VISTA =====
   document
     .getElementById('btn-show-register')
     ?.addEventListener('click', showRegister);
@@ -104,6 +103,54 @@ import {
     }
   });
 
+  // ===== REGISTRO (INTEGRADO CON BACKEND REAL) =====
+  registerForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    registerError.hidden = true;
+
+    const firstName = document.getElementById('register-name').value.trim();
+    const lastName = document.getElementById('register-lastname').value.trim();
+    const email = document
+      .getElementById('register-email')
+      .value.trim()
+      .toLowerCase();
+    const phone = document.getElementById('register-phone').value.trim();
+    const password = document.getElementById('register-password').value;
+    const confirm = document.getElementById(
+      'register-password-confirm'
+    ).value;
+
+    if (!firstName || !lastName || !email || !phone || !password) {
+      registerError.textContent = 'Todos los campos son obligatorios';
+      registerError.hidden = false;
+      return;
+    }
+
+    if (password !== confirm) {
+      registerError.textContent = 'Las contraseñas no coinciden';
+      registerError.hidden = false;
+      return;
+    }
+
+    try {
+      await register({
+        firstName,
+        lastName,
+        email,
+        phone,
+        password
+      });
+
+      closeModal();
+window.location.reload();
+
+    } catch (err) {
+      registerError.textContent =
+        err?.message || 'Error al crear la cuenta';
+      registerError.hidden = false;
+    }
+  });
+
   // ===== RECUPERAR CONTRASEÑA =====
   recoverForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -113,7 +160,7 @@ import {
     try {
       await forgotPassword(email);
     } catch {
-      // Mensaje neutro por seguridad
+      // mensaje neutro por seguridad
     }
 
     alert(

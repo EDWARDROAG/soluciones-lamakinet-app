@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -41,36 +40,25 @@ const userSchema = new mongoose.Schema(
       default: 'user'
     },
 
-    // ===============================
-    // 🔐 RECUPERACIÓN DE CONTRASEÑA
-    // ===============================
-    resetPasswordToken: {
-      type: String
-    },
-
-    resetPasswordExpires: {
-      type: Date
-    }
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
   },
-  {
-    timestamps: true
-  }
+  { timestamps: true }
 );
 
 // ===============================
-// HASH DE CONTRASEÑA (CORRECTO)
+// 🔐 HASH DE CONTRASEÑA (CORRECTO)
 // ===============================
 userSchema.pre('save', async function () {
   if (!this.isModified('password')) return;
-
   this.password = await bcrypt.hash(this.password, 10);
 });
 
 // ===============================
-// MÉTODO PARA VALIDAR PASSWORD
+// 🔍 VALIDAR PASSWORD
 // ===============================
-userSchema.methods.comparePassword = async function (password) {
-  return bcrypt.compare(password, this.password);
+userSchema.methods.comparePassword = function (plainPassword) {
+  return bcrypt.compare(plainPassword, this.password);
 };
 
 export default mongoose.model('User', userSchema);

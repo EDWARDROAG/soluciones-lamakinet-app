@@ -19,14 +19,15 @@ import './components/services.actions.js';
 import './components/auth.modal.js';
 import './utils/session.js';
 
-// // Perfil (modal Mis datos)
-// import './pages/profile.js';
-
-// // Perfil (modal) (modal Mis datos)
+// Perfil
 import './components/profile.modal.js';
 
-// import './components/password.toggle.js';
+// Seguridad 
+import './components/security.modal.js';
+
+// Password toggle
 import './components/password.toggle.js';
+
 
 
 

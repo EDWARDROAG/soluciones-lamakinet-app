@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Papelería Lamakinet | Hacemos práctica tu vida</title>
+  <title>Soluciones lamakinet | Hacemos práctica tu vida</title>
 
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="../styles/main.css" />
@@ -163,11 +163,12 @@
 </button>
 
     <!-- IZQUIERDA: LOGO -->
-    <div class="header-left">
-      <a href="index.html" class="logo">
-        Papelería Lamakinet
-      </a>
-    </div>
+<div class="header-left">
+  <a href="index.html" class="logo">
+    <img src="../assets/images/logo.png">
+  </a>
+</div>
+
 
     <!-- CENTRO: MENÚ -->
     <nav class="header-nav">
@@ -335,10 +336,14 @@
         </div>
       </label>
 
-      <div class="login-actions">
-        <button type="submit" class="btn btn-primary">
-          Cambiar contraseña
-        </button>
+      <button
+  type="button"
+  id="btn-change-password"
+  class="btn btn-primary"
+>
+  Cambiar contraseña
+</button>
+
 
         <button
           type="button"
@@ -533,14 +538,45 @@
     </div>
 
     <!-- COLUMNA 3: CONTACTO -->
-    <div class="footer-contact">
-      <h4>Contacto</h4>
-      <ul>
-        <li>📞 +57 311 561 0825</li>
-        <li>✉️ papelerialamakinet@gmail.com</li>
-        <li>📍 https://share.google/oJdFqd2LVSnUp9bzA Bogotá, Colombia</li>
-      </ul>
-    </div>
+<div class="footer-contact">
+  <h4>Contacto</h4>
+  <ul>
+    <!-- Teléfono → WhatsApp -->
+    <li>
+      <span
+        class="footer-phone"
+        data-whatsapp="573115610825"
+      >📞 +57 311 561 0825</span></li>
+    <!-- Correo → copiar -->
+    <li>
+      <span
+        class="footer-email"
+        data-email="papelerialamakinet@gmail.com"
+      >
+        papelerialamakinet@gmail.com
+      </span>
+      <small class="copy-msg">Correo copiado ✅</small>
+    </li>
+
+    <!-- Ubicación → Google Maps -->
+    <li>
+      <a
+        href="https://share.google/oJdFqd2LVSnUp9bzA"
+        target="_blank"
+        class="footer-maps"
+      >
+        <img
+          src="/assets/icons/maps.png"
+          alt="Google Maps"
+          class="maps-icon"
+        >
+        <span>Cómo llegar</span>
+      </a>
+    </li>
+
+  </ul>
+</div>
+
 
   </div>
 

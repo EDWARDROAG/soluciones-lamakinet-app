@@ -19,3 +19,8 @@ node_modules/
 # Backend
 backend/.env
 
+# factor/
+project_snapshot.py
+
+# Project Snapshot
+PROJECT_SNAPSHOT

@@ -973,4 +973,69 @@ footer {
 }
 
 
+.footer-contact li {
+  margin-bottom: 8px;
+}
+
+/* Teléfono */
+.footer-phone {
+  cursor: pointer;
+}
+
+.footer-phone:hover {
+  color: #25d366;
+}
+
+/* Email */
+.footer-email {
+  cursor: pointer;
+}
+
+.footer-email:hover {
+  text-decoration: underline;
+}
+
+.copy-msg {
+  display: none;
+  font-size: 0.75rem;
+  color: #4caf50;
+}
+
+.copy-msg.visible {
+  display: inline-block;
+  margin-left: 6px;
+}
+
+/* Maps */
+.footer-maps {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.maps-icon {
+  width: 16px;
+  height: 16px;
+}
+.logo img {
+  max-height: 150px;
+  height: 150;        /* ajusta según tu header */
+  width: auto;
+  display: block;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+.logo img {
+  max-height: 150px;
+  height: 150;
+}
+.logo img {
+  max-height: 150px;
+  object-fit: contain;
+}
 

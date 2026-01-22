@@ -1,53 +1,43 @@
-// js/components/security.modal.js
 import { changePassword } from '../services/auth.service.js';
+import { clearSession } from '../utils/storage.js';
 
-(function () {
-  const form = document.getElementById('security-form');
-  if (!form) return;
+const btn = document.getElementById('btn-change-password');
 
+btn.addEventListener('click', async () => {
   const msg = document.getElementById('security-msg');
 
-  const currentInput = document.getElementById('current-password');
-  const newInput = document.getElementById('new-password');
-  const confirmInput = document.getElementById('confirm-new-password');
+  const currentPassword =
+    document.getElementById('current-password').value;
+  const newPassword =
+    document.getElementById('new-password').value;
+  const confirm =
+    document.getElementById('confirm-new-password').value;
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    msg.hidden = true;
+  msg.hidden = true;
 
-    const currentPassword = currentInput.value.trim();
-    const newPassword = newInput.value.trim();
-    const confirmPassword = confirmInput.value.trim();
+  if (!currentPassword || !newPassword || !confirm) {
+    msg.textContent = 'Todos los campos son obligatorios';
+    msg.hidden = false;
+    return;
+  }
 
-    // Validaciones
-    if (!currentPassword || !newPassword || !confirmPassword) {
-      msg.textContent = 'Todos los campos son obligatorios';
-      msg.hidden = false;
-      return;
-    }
+  if (newPassword !== confirm) {
+    msg.textContent = 'Las contraseñas no coinciden';
+    msg.hidden = false;
+    return;
+  }
 
-    if (newPassword.length < 6) {
-      msg.textContent = 'La nueva contraseña debe tener al menos 6 caracteres';
-      msg.hidden = false;
-      return;
-    }
+  try {
+    await changePassword(currentPassword, newPassword);
 
-    if (newPassword !== confirmPassword) {
-      msg.textContent = 'Las contraseñas no coinciden';
-      msg.hidden = false;
-      return;
-    }
+    msg.textContent =
+      'Contraseña actualizada. Debes iniciar sesión nuevamente.';
+    msg.hidden = false;
 
-    try {
-      await changePassword(currentPassword, newPassword);
-
-      msg.textContent = 'Contraseña actualizada correctamente';
-      msg.hidden = false;
-
-      form.reset();
-    } catch (err) {
-      msg.textContent = err.message || 'Error al cambiar contraseña';
-      msg.hidden = false;
-    }
-  });
-})();
+    clearSession();
+    setTimeout(() => window.location.reload(), 1500);
+  } catch (err) {
+    msg.textContent = err.message;
+    msg.hidden = false;
+  }
+});

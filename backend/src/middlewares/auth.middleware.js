@@ -17,16 +17,10 @@ const authMiddleware = async (req, res, next) => {
     const decoded = jwt.verify(token, JWT_SECRET);
 
     // 🔑 BUSCAR USUARIO REAL EN BD
-    const user = await User.findById(decoded.id).select('-password');
-
-    if (!user) {
-      return res.status(401).json({
-        message: 'Usuario no encontrado'
-      });
-    }
-
-    // 👤 Usuario COMPLETO
-    req.user = user;
+    req.user = {
+  id: decoded.id,
+  role: decoded.role
+};
 
     next();
   } catch (error) {
