@@ -28,7 +28,7 @@ Construir una plataforma web que permita:
 - Autenticación y autorización mediante JWT
 - Registro y login de usuarios con validaciones
 - Perfil de usuario (consulta y actualización de datos)
-- Cambio de contraseña seguro con verificación previa
+- Cambio de contraseña seguro desde frontend y backend, con verificación previa y hash
 - Middleware de protección de rutas
 - Manejo estandarizado de errores HTTP (401, 404, 500)
 - Frontend integrado y operativo
@@ -55,6 +55,18 @@ Construir una plataforma web que permita:
 - JavaScript vanilla
 
 ---
+### Arquitectura Frontend (JavaScript modular)
+
+El frontend utiliza JavaScript con módulos ES (type="module"), donde:
+
+main.js actúa como archivo orquestador principal
+
+Todo componente que no sea importado en main.js no se ejecuta
+
+Los flujos críticos (login, perfil, seguridad) dependen de su correcta importación
+
+Nota técnica importante:
+Si un componente no está importado en main.js, no registra eventos ni ejecuta lógica, aunque el archivo exista.
 
 ## Endpoints del sistema
 
@@ -94,7 +106,7 @@ Body:
 - Retorna token JWT
 - Responde 200 o 401 según credenciales
 
----
+
 
 ## Usuario (Rutas protegidas)
 
@@ -141,8 +153,12 @@ Body:
 
 ---
 
-#### Cambio de contraseña
-**PUT** `/api/users/change-password`
+### Cambio de contraseña (usuario autenticado)
+
+POST /api/auth/change-password
+
+Headers:
+- Authorization: Bearer <token>
 
 Body:
 ```json
@@ -152,9 +168,13 @@ Body:
 }
 ```
 
-- Verifica la contraseña actual
-- Hashea la nueva contraseña
-- La contraseña anterior deja de ser válida
+Verifica la contraseña actual
+
+Hashea la nueva contraseña antes de almacenarla
+
+La contraseña anterior deja de ser válida
+
+Endpoint probado y funcional desde frontend y Thunder Client
 
 ---
 
