@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Administrador | La Mákinet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>Administrador</h2>
+
+    <nav>
+      <button id="btn-view-cashiers">Cajeros</button>
+      <button id="btn-view-clients">Clientes</button>
+      <button id="btn-view-sales">Ventas</button>
+      <button id="btn-profile">Mis datos</button>
+      <button id="btn-security">Seguridad</button>
+
+      <!-- LOGOUT -->
+      <button id="logoutBtn">Cerrar sesión</button>
+    </nav>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main id="panel-content">
+
+    <!-- CAJEROS -->
+    <section id="section-cashiers" hidden>
+      <h1>Cajeros</h1>
+      <button id="btn-create-cashier">Crear cajero</button>
+      <table id="table-cashiers"></table>
+    </section>
+
+    <!-- CLIENTES -->
+    <section id="section-clients" hidden>
+      <h1>Clientes</h1>
+      <button id="btn-create-client">Crear cliente</button>
+      <table id="table-clients"></table>
+    </section>
+
+    <!-- VENTAS -->
+    <section id="section-sales" hidden>
+      <h1>Ventas</h1>
+      <table id="table-sales"></table>
+    </section>
+
+    <!-- PERFIL -->
+    <section id="section-profile" hidden></section>
+
+    <!-- SEGURIDAD -->
+    <section id="section-security" hidden></section>
+
+  </main>
+
+  <!-- JS DEL PANEL (SOLO ESTE) -->
+  <script type="module" src="./js/pages/admin.js"></script>
+
+</body>
+</html>

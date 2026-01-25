@@ -7,16 +7,31 @@ import {
   deleteClient
 } from '../controllers/client.controller.js';
 
-import authMiddleware from '../middlewares/auth.middleware.js';
+import { protect } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-router.use(authMiddleware);
+/**
+ * ===============================
+ * 👥 CLIENTES
+ * ===============================
+ * Todas las rutas de clientes requieren autenticación
+ */
+router.use(protect);
 
+// Crear cliente
 router.post('/', createClient);
+
+// Listar clientes
 router.get('/', getClients);
+
+// Obtener cliente por ID
 router.get('/:id', getClientById);
+
+// Actualizar cliente
 router.put('/:id', updateClient);
+
+// Eliminar cliente
 router.delete('/:id', deleteClient);
 
 export default router;

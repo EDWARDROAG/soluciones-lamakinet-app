@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import AppError from '../../utils/AppError.js';
 
-
 // ===============================
 // REGISTER + JWT
 // ===============================
@@ -40,8 +39,16 @@ export const register = async (req, res, next) => {
 
     res.status(201).json({
       success: true,
-      token
+      token,
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role
+      }
     });
+
   } catch (error) {
     next(error);
   }
@@ -80,8 +87,16 @@ export const login = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      token
+      token,
+      user: {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        role: user.role
+      }
     });
+
   } catch (error) {
     next(error);
   }
@@ -96,7 +111,7 @@ export const forgotPassword = async (req, res, next) => {
 
     const user = await User.findOne({ email });
 
-    // Seguridad: responder igual siempre
+    // 🔒 Seguridad: responder igual siempre
     if (!user) {
       return res.json({ success: true });
     }
@@ -118,6 +133,7 @@ export const forgotPassword = async (req, res, next) => {
     console.log('🔐 RESET PASSWORD URL:', resetUrl);
 
     res.json({ success: true });
+
   } catch (error) {
     next(error);
   }
@@ -151,6 +167,7 @@ export const resetPassword = async (req, res, next) => {
     await user.save();
 
     res.json({ success: true });
+
   } catch (error) {
     next(error);
   }
@@ -168,7 +185,6 @@ export const changePassword = async (req, res, next) => {
       throw new AppError('Todos los campos son obligatorios', 400);
     }
 
-    // ⚠️ IMPORTANTE: +password
     const user = await User.findById(userId).select('+password');
     if (!user) {
       throw new AppError('Usuario no encontrado', 404);
@@ -179,16 +195,13 @@ export const changePassword = async (req, res, next) => {
       throw new AppError('Contraseña actual incorrecta', 400);
     }
 
-    // ✅ ASIGNAR EN PLANO
-    // ❌ NO hashear aquí
+    // ❗ Asignar en plano, el hash ocurre en pre('save')
     user.password = newPassword;
-
-    // 🔥 AQUÍ se ejecuta el pre('save')
     await user.save();
 
     res.json({ success: true });
+
   } catch (error) {
     next(error);
   }
 };
-

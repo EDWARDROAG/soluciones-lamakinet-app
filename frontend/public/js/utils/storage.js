@@ -1,4 +1,11 @@
+// js/utils/storage.js
+
 const TOKEN_KEY = 'lamakinet_token';
+const USER_KEY = 'lamakinet_user';
+
+/* ===============================
+   TOKEN
+================================ */
 
 export function setToken(token) {
   localStorage.setItem(TOKEN_KEY, token);
@@ -12,27 +19,32 @@ export function removeToken() {
   localStorage.removeItem(TOKEN_KEY);
 }
 
-/* ✅ alias semántico para sesión */
-export function clearSession() {
-  removeToken();
-  removeSessionUser();
-}
-
-export function isAuthenticated() {
-  return !!getToken();
-}
-
-const USER_KEY = 'lamakinet_user';
+/* ===============================
+   USUARIO
+================================ */
 
 export function setSessionUser(user) {
   localStorage.setItem(USER_KEY, JSON.stringify(user));
 }
 
-export function getSessionUser() {
+export function getUser() {
   const user = localStorage.getItem(USER_KEY);
   return user ? JSON.parse(user) : null;
 }
 
 export function removeSessionUser() {
   localStorage.removeItem(USER_KEY);
+}
+
+/* ===============================
+   SESIÓN
+================================ */
+
+export function isAuthenticated() {
+  return !!getToken();
+}
+
+export function clearSession() {
+  removeToken();
+  removeSessionUser();
 }

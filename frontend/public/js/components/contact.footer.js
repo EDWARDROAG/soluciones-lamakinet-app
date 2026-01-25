@@ -16,10 +16,7 @@ function initWhatsappPhone() {
     }
   });
 
-  phone.addEventListener('click', () => {
-    window.open(`https://wa.me/${number}`, '_blank');
-  });
-}
+ }
 
 /* 📧 Email → copiar */
 function initEmailCopy() {

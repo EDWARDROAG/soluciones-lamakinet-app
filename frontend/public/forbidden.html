@@ -31,13 +31,14 @@
       color: #555;
       margin-bottom: 24px;
     }
-    a {
-      display: inline-block;
+    button {
       padding: 10px 18px;
       background: #1f4fd8;
       color: #fff;
       border-radius: 8px;
-      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
     }
   </style>
 </head>
@@ -46,8 +47,45 @@
   <div class="box">
     <h1>403</h1>
     <p>No tienes permisos para acceder a esta página.</p>
-    <a href="index.html">Iniciar sesión</a>
+    <button id="actionBtn">Continuar</button>
   </div>
+
+  <script type="module">
+    import { isAuthenticated, getUser } from './js/utils/storage.js';
+
+    const btn = document.getElementById('actionBtn');
+
+    btn.addEventListener('click', () => {
+
+      // 🔓 Si NO está logueado → index
+      if (!isAuthenticated()) {
+        window.location.replace('index.html');
+        return;
+      }
+
+      const user = getUser();
+
+      if (!user || !user.role) {
+        window.location.replace('index.html');
+        return;
+      }
+
+      // 🧭 Redirigir al panel correcto
+      switch (user.role) {
+        case 'super_admin':
+          window.location.replace('superadmin.html');
+          break;
+        case 'admin':
+          window.location.replace('admin.html');
+          break;
+        case 'cashier':
+          window.location.replace('cashier.html');
+          break;
+        default:
+          window.location.replace('index.html');
+      }
+    });
+  </script>
 
 </body>
 </html>

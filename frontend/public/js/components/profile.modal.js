@@ -1,4 +1,4 @@
-import { getProfile, updateProfile } from '../services/user.service.js';
+import { getMyProfile, updateProfile } from '../services/user.service.js';
 import { setSessionUser } from '../utils/storage.js';
 
 (function () {
@@ -26,9 +26,9 @@ import { setSessionUser } from '../utils/storage.js';
     msg.hidden = true;
 
     try {
-      console.log('ANTES DE getProfile'); // 👈 prueba 2
-      const user = await getProfile();
-      console.log('RESPUESTA getProfile:', user); // 👈 prueba 3
+      console.log('ANTES DE getMyProfile'); // 👈 prueba 2
+      const user = await getMyProfile();
+      console.log('RESPUESTA getMyProfile:', user); // 👈 prueba 3
 
       inputFirstName.value = user.firstName || '';
       inputLastName.value  = user.lastName || '';

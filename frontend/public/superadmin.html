@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Super Administrador | La Mákinet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>Super Admin</h2>
+
+    <nav>
+      <button id="btn-view-admins">Administradores</button>
+      <button id="btn-view-cashiers">Cajeros</button>
+      <button id="btn-view-clients">Clientes</button>
+      <button id="btn-view-sales">Ventas</button>
+      <button id="btn-view-logs">Logs</button>
+      <button id="btn-profile">Mis datos</button>
+      <button id="btn-security">Seguridad</button>
+
+      <!-- LOGOUT (UNO SOLO) -->
+      <button id="logoutBtn">Cerrar sesión</button>
+    </nav>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main id="panel-content">
+
+    <!-- ADMINISTRADORES -->
+    <section id="section-admins" hidden>
+      <h1>Administradores</h1>
+      <button id="btn-create-admin">Crear administrador</button>
+      <table id="table-admins"></table>
+    </section>
+
+    <!-- CAJEROS -->
+    <section id="section-cashiers" hidden>
+      <h1>Cajeros</h1>
+      <button id="btn-create-cashier">Crear cajero</button>
+      <table id="table-cashiers"></table>
+    </section>
+
+    <!-- CLIENTES -->
+    <section id="section-clients" hidden>
+      <h1>Clientes</h1>
+      <table id="table-clients"></table>
+    </section>
+
+    <!-- VENTAS -->
+    <section id="section-sales" hidden>
+      <h1>Ventas</h1>
+      <button id="btn-filter-sales">Filtrar</button>
+      <table id="table-sales"></table>
+    </section>
+
+    <!-- LOGS -->
+    <section id="section-logs" hidden>
+      <h1>Logs administrativos</h1>
+      <table id="table-logs"></table>
+    </section>
+
+    <!-- PERFIL -->
+    <section id="section-profile" hidden></section>
+
+    <!-- SEGURIDAD -->
+    <section id="section-security" hidden></section>
+
+  </main>
+
+  <!-- JS DEL PANEL (SOLO ESTE) -->
+  <script type="module" src="./js/pages/superadmin.js"></script>
+
+</body>
+</html>

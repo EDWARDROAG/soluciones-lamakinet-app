@@ -2,7 +2,7 @@
 import {
   getToken,
   clearSession,
-  getSessionUser
+  getUser
 } from './storage.js';
 
 (function () {
@@ -33,7 +33,7 @@ import {
   userBox.style.display = 'inline-block';
 
   // Mostrar nombre desde sesión (NO desde JWT)
-  const sessionUser = getSessionUser();
+  const sessionUser = getUser();
 
   if (sessionUser?.firstName) {
     userToggle.textContent = `Hola, ${sessionUser.firstName} ▼`;

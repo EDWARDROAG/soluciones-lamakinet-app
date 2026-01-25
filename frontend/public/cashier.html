@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cajero | La Mákinet</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h2>Cajero</h2>
+
+    <nav>
+      <button id="btn-start-shift">Iniciar jornada</button>
+      <button id="btn-close-shift">Cerrar jornada</button>
+      <button id="btn-sell">Vender</button>
+      <button id="btn-my-sales">Mis ventas</button>
+      <button id="btn-profile">Mis datos</button>
+      <button id="btn-security">Seguridad</button>
+
+      <!-- LOGOUT -->
+      <button id="logoutBtn">Cerrar sesión</button>
+    </nav>
+  </aside>
+
+  <!-- CONTENIDO -->
+  <main id="panel-content">
+
+    <!-- JORNADA -->
+    <section id="section-shift" hidden>
+      <h1>Jornada actual</h1>
+      <p>Total del día:</p>
+      <strong id="daily-total">$0</strong>
+    </section>
+
+    <!-- VENTAS -->
+    <section id="section-sales" hidden>
+      <h1>Ventas</h1>
+      <table id="table-my-sales"></table>
+    </section>
+
+    <!-- PERFIL -->
+    <section id="section-profile" hidden></section>
+
+    <!-- SEGURIDAD -->
+    <section id="section-security" hidden></section>
+
+  </main>
+
+  <!-- JS DEL PANEL (SOLO ESTE) -->
+  <script type="module" src="./js/pages/cashier.js"></script>
+
+</body>
+</html>

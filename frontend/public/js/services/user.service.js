@@ -1,27 +1,24 @@
-// js/services/user.service.js
 import { api } from '../api/api.js';
 
-export async function getProfile() {
-  try {
-    const response = await api('/users/me');
-    return response; // 👈 ahora sí devuelve el perfil completo
-  } catch (err) {
-    throw new Error(
-      err?.message || 'Error al cargar el perfil'
-    );
-  }
+/**
+ * ===============================
+ * 👤 PERFIL DEL USUARIO
+ * ===============================
+ */
+
+/**
+ * Obtener mis datos
+ */
+export async function getMyProfile() {
+  return api('/users/me');
 }
 
-export async function updateProfile(data) {
-  try {
-    const response = await api('/users/me', {
-      method: 'PUT',
-      body: JSON.stringify(data)
-    });
-    return response; // 👈 devuelve usuario actualizado
-  } catch (err) {
-    throw new Error(
-      err?.message || 'Error al actualizar el perfil'
-    );
-  }
+/**
+ * Actualizar mis datos
+ */
+export async function updateProfile(profileData) {
+  return api('/users/me', {
+    method: 'PUT',
+    body: JSON.stringify(profileData)
+  });
 }

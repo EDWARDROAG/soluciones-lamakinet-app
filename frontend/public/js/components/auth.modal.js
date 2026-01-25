@@ -5,6 +5,8 @@ import {
   register
 } from '../services/auth.service.js';
 
+import { setSessionUser } from '../utils/storage.js';
+
 (function () {
   // ===== ELEMENTOS BASE =====
   const btnLogin = document.getElementById('btn-login');
@@ -78,7 +80,9 @@ import {
     .getElementById('btn-cancel-recover')
     ?.addEventListener('click', showLogin);
 
-  // ===== LOGIN =====
+  // ===============================
+  // LOGIN (CON REDIRECCIÓN POR ROL)
+  // ===============================
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     loginError.hidden = true;
@@ -93,9 +97,39 @@ import {
     }
 
     try {
-      await login(email, password);
+      // 🔐 Login backend
+      const { user } = await login(email, password);
+
+      if (!user || !user.role) {
+        throw new Error('No se pudo identificar el rol del usuario');
+      }
+
+      // 💾 Guardar usuario en sesión
+      setSessionUser(user);
+
       closeModal();
-      window.location.reload();
+
+      // 🚦 Redirección según rol
+      switch (user.role) {
+        case 'super_admin':
+          window.location.replace('superadmin.html');
+          return;
+
+        case 'admin':
+          window.location.replace('admin.html');
+          return;
+
+        case 'cashier':
+          window.location.replace('cashier.html');
+          return;
+
+        case 'client':
+        default:
+          // Cliente se queda en index
+          window.location.reload();
+          return;
+      }
+
     } catch (err) {
       loginError.textContent =
         err?.message || 'Correo o contraseña incorrectos';
@@ -103,7 +137,9 @@ import {
     }
   });
 
-  // ===== REGISTRO (INTEGRADO CON BACKEND REAL) =====
+  // ===============================
+  // REGISTRO (SOLO CLIENTES)
+  // ===============================
   registerForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
     registerError.hidden = true;
@@ -142,7 +178,7 @@ import {
       });
 
       closeModal();
-window.location.reload();
+      window.location.reload();
 
     } catch (err) {
       registerError.textContent =
@@ -151,7 +187,9 @@ window.location.reload();
     }
   });
 
-  // ===== RECUPERAR CONTRASEÑA =====
+  // ===============================
+  // RECUPERAR CONTRASEÑA
+  // ===============================
   recoverForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -160,7 +198,7 @@ window.location.reload();
     try {
       await forgotPassword(email);
     } catch {
-      // mensaje neutro por seguridad
+      // Mensaje neutro por seguridad
     }
 
     alert(
@@ -169,4 +207,5 @@ window.location.reload();
 
     showLogin();
   });
+
 })();

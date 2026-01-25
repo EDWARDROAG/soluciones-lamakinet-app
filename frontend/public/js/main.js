@@ -29,7 +29,4 @@ import './components/security.modal.js';
 import './components/password.toggle.js';
 
 
-
-
-
 console.log('✅ Frontend iniciado');
